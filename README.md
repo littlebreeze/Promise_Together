@@ -22,8 +22,8 @@
 
 
 ## member
-샤히라(@) <br>
-이재완(@) <br>
-이지원(@) <br>
+샤히라(@syahirah29) <br>
+이재완(@zwan2) <br>
+이지원(@dlwldnjs950) <br>
 이혜진(@melthleeth) <br>
-(@) <br>
+최찬기(@admin59) <br>
