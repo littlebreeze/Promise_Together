@@ -3,6 +3,7 @@ package com.myfirstapp.logintest2;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
 import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
@@ -79,4 +80,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
+
 }
