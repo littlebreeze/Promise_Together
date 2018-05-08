@@ -4,5 +4,12 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="white">#ffffff</color>
+    <color name="color1">#f0ede5</color>
+    <color name="color2">#2e4a62</color>
+    <color name="color3">#bfd641</color>
+    <color name="color5">#4b7497</color>
+    <color name="color6">#c61830</color>
+    <color name="color7">#ff970d</color>
     <drawable name="bg_screen1">#B33395ff</drawable>
+  >
 </resources>

@@ -33,7 +33,7 @@
         android:gravity="center"
         android:padding="10dp"
         android:id="@+id/login_screen"
-        android:background="@drawable/bg_screen1"
+        android:background="@color/color1"
         android:orientation="vertical"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true">
@@ -42,11 +42,11 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:textSize="16sp"
+            android:gravity="center"
             android:padding="10dp"
             android:text="Login to Promise Together"
-            android:gravity="center" />
+            android:textColor="@color/color2"
+            android:textSize="24sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -59,32 +59,32 @@
 
 
             <Button
+                android:id="@+id/phone"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:background="@drawable/corner_button_green"
-                android:text="Login/Register"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="14sp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/gradiennt1"
+                android:drawablePadding="25dp"
                 android:gravity="center_vertical"
+                android:paddingEnd="10dp"
 
                 android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:drawablePadding="25dp"
-                android:id="@+id/phone"
-                android:layout_marginBottom="16dp"
+                android:text="Login/Register"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="24sp"
                 tools:ignore="OnClick" />
 
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="By using the app, you agree to the Terms and Privacy Policies"
-                android:textColor="@color/white"
-                android:textAllCaps="false"
                 android:gravity="center"
-                android:textSize="12sp"
-                />
+                android:text="By using the app, you agree to the Terms and Privacy Policies"
+                android:textAllCaps="false"
+                android:textColor="@color/color2"
+                android:textSize="18sp" />
         </LinearLayout>
 
     </LinearLayout>

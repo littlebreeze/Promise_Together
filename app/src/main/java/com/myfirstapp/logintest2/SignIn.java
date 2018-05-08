@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.support.v7.widget.Toolbar;
 
@@ -47,14 +48,22 @@ public class SignIn extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
-        Toolbar toolbar = (Toolbar)findViewById(R.id.toolBar);
-        toolbar.setTitle("Firebase Auth");
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolBar);
+        toolbar.setTitle("Promise Together");
         setSupportActionBar(toolbar);
 
-        txtPhone = (TextView)findViewById(R.id.txtPhone);
-        if(getIntent()!=null){
-            txtPhone.setText((getIntent().getStringExtra("phone")));
-        }
 
     }
+
+    public void onClickJoin(View view) {
+        Intent Intent = new Intent(this, JoinActivity.class);
+        startActivity(Intent);
+    }
+
+    public void onClickAlreadyJoin(View view) {
+        Intent Intent = new Intent(this, StartActivity.class);
+        startActivity(Intent);
+    }
+
+
 }
