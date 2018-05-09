@@ -1,5 +1,7 @@
 # Promise Together
 - School Project with Living Lab idea
+<br>
+<img src = "https://user-images.githubusercontent.com/22411481/39802541-4c1309c4-53a9-11e8-9e14-b1448f9afa4b.png" width = 20%></img>
 
 ## We did...
 - [X] UI Design
