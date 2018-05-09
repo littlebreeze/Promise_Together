@@ -60,16 +60,15 @@
 
             <Button
                 android:id="@+id/phone"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_width="290dp"
+                android:layout_height="60dp"
                 android:layout_marginBottom="16dp"
-                android:background="@drawable/gradiennt1"
+                android:background="@drawable/login"
                 android:drawablePadding="25dp"
                 android:gravity="center_vertical"
                 android:paddingEnd="10dp"
 
                 android:paddingStart="10dp"
-                android:text="Login/Register"
                 android:textAlignment="center"
                 android:textAllCaps="false"
                 android:textColor="@color/white"

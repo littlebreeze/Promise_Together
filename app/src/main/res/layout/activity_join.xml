@@ -20,18 +20,17 @@
 
     <Button
         android:id="@+id/button2"
-        android:layout_width="136dp"
-        android:layout_height="57dp"
-        android:background="@color/color2"
+        android:layout_width="160dp"
+        android:layout_height="70dp"
 
-        android:text="JOIN"
+        android:background="@drawable/join"
         android:textColor="@color/white"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/editText"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolBar" />
+        app:layout_constraintTop_toTopOf="@+id/toolBar" />
 
     <EditText
         android:id="@+id/editText"
@@ -50,9 +49,9 @@
 
     <Button
         android:id="@+id/send"
-        android:layout_width="94dp"
-        android:layout_height="83dp"
-        android:background="@android:drawable/ic_menu_send"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:background="@drawable/send"
         android:backgroundTint="@color/color2"
         android:onClick="send"
         app:layout_constraintBottom_toBottomOf="parent"
