@@ -31,6 +31,7 @@
         <activity android:name=".Tutorial1" />
         <activity android:name=".Tutorial2" />
         <activity android:name=".Tutorial3" />
+        <activity android:name=".FloatButton"></activity>
     </application>
 
 </manifest>

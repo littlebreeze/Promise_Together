@@ -13,6 +13,7 @@ import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+//already signed in 상태
 public class SignIn extends AppCompatActivity {
 
     TextView txtPhone;

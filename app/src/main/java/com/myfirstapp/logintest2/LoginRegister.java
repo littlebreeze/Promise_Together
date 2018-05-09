@@ -31,7 +31,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 import com.google.firebase.auth.PhoneAuthCredential;
 
-
+//login@singn in firebase connection
 public class LoginRegister extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
     private Button loginButton;

@@ -8,6 +8,8 @@ import android.os.Bundle;
  * Created by LittleBird on 2018-04-15.
  */
 
+
+//first page of app
 public class SplashActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);

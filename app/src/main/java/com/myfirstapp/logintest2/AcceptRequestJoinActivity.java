@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+//access code from partner (연결)
+
 public class AcceptRequestJoinActivity extends AppCompatActivity {
 
     @Override

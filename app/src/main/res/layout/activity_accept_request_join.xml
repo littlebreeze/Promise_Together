@@ -11,9 +11,9 @@
         android:id="@+id/toolBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/color2"
+        android:background="@color/color1"
         android:minHeight="?attr/actionBarSize"
-        app:titleTextColor="@android:color/white">
+        app:titleTextColor="@color/color1">
 
 
     </android.support.v7.widget.Toolbar>
@@ -64,7 +64,7 @@
         android:id="@+id/textView"
         android:layout_width="155dp"
         android:layout_height="49dp"
-        android:text="인증번호 입력"
+        android:text="Request Code"
         android:textAlignment="center"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/editText"

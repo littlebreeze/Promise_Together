@@ -5,15 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color1"
-    tools:context="com.myfirstapp.logintest2.StartActivity">
+    tools:context="com.myfirstapp.logintest2.StartActivity"
+    tools:layout_editor_absoluteY="25dp">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/color2"
+        android:background="@color/color1"
         android:minHeight="?attr/actionBarSize"
-        app:titleTextColor="@android:color/white">
+        app:titleTextColor="@color/color1">
 
 
     </android.support.v7.widget.Toolbar>
@@ -133,7 +134,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gridLayout2"
         app:rippleColor="@color/color1"
-        app:srcCompat="@android:drawable/ic_input_add" />
-
+        app:srcCompat="@android:drawable/ic_input_add"
+        app:pressedTranslationZ="12dp"/>
 
 </android.support.constraint.ConstraintLayout>

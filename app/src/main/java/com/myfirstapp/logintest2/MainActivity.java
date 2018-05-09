@@ -13,6 +13,8 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Arrays;
 
+//user already have account
+//if not sign out-> no need to sign in
 public class MainActivity extends AppCompatActivity {
 
     private final int REQUEST_LOGIN = 1000;
