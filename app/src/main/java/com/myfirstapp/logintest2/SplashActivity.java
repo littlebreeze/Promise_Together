@@ -20,7 +20,7 @@ public class SplashActivity extends Activity {
             e.printStackTrace();
         }
         //startActivity(new Intent(this, ScreenSlidePagerActivity.class));
-        //startActivity(new Intent(this, SignIn.class));
+        //startActivity(new Intent(this, StartActivity.class));
         //startActivity(new Intent(this, LoginRegister.class));
         startActivity(new Intent(this, Tutorial1.class));
         finish();

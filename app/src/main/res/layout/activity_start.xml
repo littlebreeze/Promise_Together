@@ -20,7 +20,7 @@
     </android.support.v7.widget.Toolbar>
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/calendar"
         android:layout_width="55dp"
         android:layout_height="55dp"
         android:layout_marginBottom="8dp"
@@ -32,14 +32,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolBar" />
 
-    <Button
-        android:id="@+id/button3"
+    <ImageButton
+        android:id="@+id/profile"
         android:layout_width="55dp"
         android:layout_height="55dp"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/profile"
-        android:backgroundTint="@color/color2"
+        android:adjustViewBounds="true"
+        android:background="@drawable/profile2"
+        android:scaleType="fitXY"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolBar" />
 
@@ -50,9 +52,9 @@
         android:layout_marginTop="8dp"
         android:background="@drawable/daily_remainders"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.703"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button3" />
+        app:layout_constraintTop_toBottomOf="@+id/profile" />
 
     <TextView
         android:id="@+id/dailyTask"
@@ -136,5 +138,7 @@
         app:rippleColor="@color/color1"
         app:srcCompat="@android:drawable/ic_input_add"
         app:pressedTranslationZ="12dp"/>
+
+
 
 </android.support.constraint.ConstraintLayout>

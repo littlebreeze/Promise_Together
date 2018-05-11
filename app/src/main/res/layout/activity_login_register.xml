@@ -80,7 +80,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="By using the app, you agree to the Terms and Privacy Policies"
+                android:text="You shall be fully responsible for any consequences resulting from your use of this application."
                 android:textAllCaps="false"
                 android:textColor="@color/color2"
                 android:textSize="18sp" />
