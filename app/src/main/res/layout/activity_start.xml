@@ -21,8 +21,8 @@
 
     <Button
         android:id="@+id/calendar"
-        android:layout_width="55dp"
-        android:layout_height="55dp"
+        android:layout_width="53dp"
+        android:layout_height="57dp"
         android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -34,8 +34,8 @@
 
     <ImageButton
         android:id="@+id/profile"
-        android:layout_width="55dp"
-        android:layout_height="55dp"
+        android:layout_width="57dp"
+        android:layout_height="54dp"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
         android:adjustViewBounds="true"
@@ -80,48 +80,63 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dailyTask" />
 
-    <GridLayout
-        android:id="@+id/gridLayout2"
-        android:layout_width="0dp"
-        android:layout_height="150dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
 
-        android:columnCount="1"
-        android:rowCount="4"
+    android:id="@+id/gridLayout2"
+    android:layout_width="0dp"
+    android:layout_height="150dp"
+    android:layout_marginEnd="8dp"
+    android:layout_marginStart="8dp"
+
+    android:columnCount="1"
+    android:rowCount="4"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.5"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/button5">
+
+    <CheckBox
+        android:id="@+id/Check"
+        style="@android:style/Widget.CompoundButton.CheckBox"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:buttonTint="@color/color2"
+        android:checked="false"
+        android:hint="@string/action_settings"
+        android:text="task3"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintTop_toBottomOf="@+id/Check2"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <CheckBox
+        android:id="@+id/Check2"
+        android:layout_width="match_parent"
+        android:layout_height="39dp"
+        android:layout_marginTop="8dp"
+        android:buttonTint="@color/color2"
+        android:text="task2"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button5">
+        app:layout_constraintTop_toBottomOf="@+id/Check3" />
 
-        <CheckBox
-            android:id="@+id/Check"
-            style="@android:style/Widget.CompoundButton.CheckBox"
-            android:layout_width="match_parent"
-            android:layout_height="39dp"
-            android:buttonTint="@color/color2"
-            android:checked="false"
-            android:hint="@string/action_settings"
-            android:text="task1"
-            android:textAlignment="center" />
+    <CheckBox
+        android:id="@+id/Check3"
+        android:layout_width="match_parent"
+        android:layout_height="39dp"
+        android:layout_marginTop="8dp"
+        android:buttonTint="@color/color2"
+        android:text="task1"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button5" />
 
-        <CheckBox
-            android:id="@+id/Check2"
-            android:layout_width="match_parent"
-            android:layout_height="39dp"
-            android:buttonTint="@color/color2"
-            android:text="task2"
-            android:textAlignment="center" />
 
-        <CheckBox
-            android:id="@+id/Check3"
-            android:layout_width="match_parent"
-            android:layout_height="39dp"
-            android:buttonTint="@color/color2"
-            android:text="task3"
-            android:textAlignment="center" />
-
-    </GridLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButton"
@@ -134,11 +149,21 @@
         app:backgroundTint="@color/color2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gridLayout2"
+
         app:rippleColor="@color/color1"
         app:srcCompat="@android:drawable/ic_input_add"
         app:pressedTranslationZ="12dp"/>
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingActionButton2"
+        android:layout_width="53dp"
+        android:layout_height="57dp"
+        android:layout_marginBottom="12dp"
+        android:layout_marginEnd="16dp"
+        android:clickable="true"
+        app:layout_constraintBottom_toTopOf="@+id/floatingActionButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/calendar" />
 
 
 </android.support.constraint.ConstraintLayout>
