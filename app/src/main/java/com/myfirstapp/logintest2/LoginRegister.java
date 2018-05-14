@@ -30,7 +30,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 import com.google.firebase.auth.PhoneAuthCredential;
-//회원가입 액티비티 (LOGIN 버튼 있는)
 
 //login@singn in firebase connection
 public class LoginRegister extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
@@ -38,6 +37,7 @@ public class LoginRegister extends AppCompatActivity implements GoogleApiClient.
     private Button loginButton;
     private Button phoneButton;
     private GoogleApiClient mGoogleApiClient;
+    private FirebaseAuth mAuth;
     private String TAG = "LoginActivity";
     private int RC_SIGN_IN = 9001;
     private LinearLayout loadingProgress;
@@ -45,8 +45,6 @@ public class LoginRegister extends AppCompatActivity implements GoogleApiClient.
     private AppCompatEditText phoneNumber;
     private LinearLayout verifyLayout;
     private LinearLayout inputCodeLayout;
-
-    private FirebaseAuth mAuth;
 
 
 
@@ -57,8 +55,6 @@ public class LoginRegister extends AppCompatActivity implements GoogleApiClient.
         loadingProgress = (LinearLayout)findViewById(R.id.loadingProgress);
         loadingProgress.setVisibility(View.INVISIBLE);
         loginScreen = (LinearLayout)findViewById(R.id.login_screen);
-
-
         //initialize my Firebase Auth (get an instance of it)
         mAuth = FirebaseAuth.getInstance();
 
@@ -78,7 +74,7 @@ public class LoginRegister extends AppCompatActivity implements GoogleApiClient.
 
         //on create ends here
     }
-    /*
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -96,9 +92,7 @@ public class LoginRegister extends AppCompatActivity implements GoogleApiClient.
             }
         }
     }
-    */
-    //(미사용)구글 계정 로그인
-    /*
+
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         //here we take the account that was passed to this method when the authentication with Gmail was successful, and then use that to perform
         //a firebase authentication
@@ -135,7 +129,7 @@ public class LoginRegister extends AppCompatActivity implements GoogleApiClient.
                 });
 
     }
-    */
+
 
 
 
