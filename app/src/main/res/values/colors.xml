@@ -12,5 +12,8 @@
     <color name="color7">#ff970d</color>
     <color name="transparent">#00000000</color>
     <drawable name="bg_screen1">#B33395ff</drawable>
-  >
+
+    <color name="fui_transparent">#c0c0c0</color>
+
+
 </resources>

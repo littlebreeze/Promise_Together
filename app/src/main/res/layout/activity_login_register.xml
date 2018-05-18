@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.myfirstapp.logintest2.LoginRegister">
+    tools:context="com.myfirstapp.logintest2.LoginActivity">
 
 
     <LinearLayout
@@ -59,7 +59,7 @@
 
 
             <Button
-                android:id="@+id/phone"
+                android:id="@+id/login_button"
                 android:layout_width="290dp"
                 android:layout_height="60dp"
                 android:layout_marginBottom="16dp"

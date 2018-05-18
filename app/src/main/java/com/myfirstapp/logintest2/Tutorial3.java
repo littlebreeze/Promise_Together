@@ -14,7 +14,7 @@ public class Tutorial3 extends AppCompatActivity {
     }
 
     public void tutorial3(View view) {
-        startActivity(new Intent(this, LoginRegister.class));
+        startActivity(new Intent(this, LoginActivity.class));
         finish();
     }
 }
