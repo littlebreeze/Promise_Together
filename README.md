@@ -14,11 +14,11 @@
 - [X] Sign Out
 - [X] Make Member Database
 - [ ] Make Group Database
-- [ ] Make 'Daily Reminders' and 'Our Missions' Database 
+- [X] Make 'Daily Reminders' and 'Our Missions' Database 
 ---
-- [ ] Operating the Function of Profile Picture
-- [ ] Add Text Editing Function of 'Our Reminders'
-- [ ] Show Reminders and Missions List
+- [X] Operating the Function of Profile Picture
+- [X] Add Text Editing Function of 'Our Reminders'
+- [X] Show Reminders and Missions List
 - [ ] Add Calendar
 - [ ] Voice Recognition & Reading Function
 
