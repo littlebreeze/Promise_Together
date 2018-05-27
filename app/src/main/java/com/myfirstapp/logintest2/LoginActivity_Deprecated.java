@@ -12,6 +12,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Arrays;
 import java.util.List;
+import java.lang.String;
 
 //user already have account
 //if not sign out-> no need to sign in
