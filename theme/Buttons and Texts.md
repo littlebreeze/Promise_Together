@@ -1,8 +1,8 @@
-## App Icon
+# App Icon
 </br>
 <img src = "https://user-images.githubusercontent.com/22411481/39801522-7a27b538-53a6-11e8-86b0-8355d7be59f4.png" width = 50%></img>
 
-## Start Page
+# Start Page
 * Start button </br></br>
 <img src = "https://user-images.githubusercontent.com/22411481/39800936-84f40202-53a4-11e8-9b21-eec56adcc523.png" width = 40%></img>
 <img src = "https://user-images.githubusercontent.com/22411481/39800686-969ae120-53a3-11e8-93fa-eee0b3753b99.png" width = 40%></img>
@@ -23,8 +23,8 @@
 <img src = "https://user-images.githubusercontent.com/22411481/39799964-1ea3d520-53a1-11e8-9bf5-5c706c884b68.png" width = 27%></img>
 </br>
 
-## Main Page
-### Texts
+# Main Page
+## Texts
 * Daily Reminders </br></br>
 <img src = "https://user-images.githubusercontent.com/22411481/39801149-28ca5c1e-53a5-11e8-90f2-0475f21ae467.png" width = 50%></img>
 </br>
@@ -33,11 +33,24 @@
 <img src = "https://user-images.githubusercontent.com/22411481/39801150-28f920f8-53a5-11e8-808c-51785c0eb389.png" width = 50%></img>
 </br>
 
-### Icons
+## Icons
 * Calendar </br></br>
 <img src = "https://user-images.githubusercontent.com/22411481/39801304-ad70d074-53a5-11e8-86e1-1b6c880ea838.png" width = 20%></img>
 </br>
 
 * Profile </br></br>
 <img src = "https://user-images.githubusercontent.com/22411481/39801307-b0725d56-53a5-11e8-87c4-bf7801afa403.png" width = 20%></img>
+</br>
+
+### Floating button </br></br>
+* Reminders </br></br>
+<img src = "https://user-images.githubusercontent.com/22411481/40585681-eb98c2f8-61f1-11e8-8f15-555109363d46.png" width = 20%></img>
+</br>
+
+* Missions </br></br>
+<img src = "https://user-images.githubusercontent.com/22411481/40585682-ec170c4e-61f1-11e8-9b7a-b312b1c9fade.png" width = 20%></img>
+</br>
+
+* Applied example </br></br>
+<img src = "https://user-images.githubusercontent.com/22411481/40585733-793db168-61f2-11e8-8d5b-5a97261fdf99.png" width = 50%></img>
 </br>
