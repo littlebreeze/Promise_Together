@@ -21,7 +21,7 @@ public class SplashActivity extends Activity {
         }
         //startActivity(new Intent(this, ScreenSlidePagerActivity.class));
         //startActivity(new Intent(this, StartActivity.class));
-        //startActivity(new Intent(this, LoginActivity.class));
+        //startActivity(new Intent(this, MainActivity.class));
         startActivity(new Intent(this, LoginActivity.class));
         finish();
     }

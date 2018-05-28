@@ -2,8 +2,10 @@ package com.myfirstapp.logintest2;
 
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -17,12 +19,17 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.PopupMenu;
 import android.view.View.OnClickListener;
+import android.support.design.widget.FloatingActionButton;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -48,6 +55,15 @@ public class MainActivity extends AppCompatActivity {
     ImageView imageView;
     Integer REQUEST_CAMERA = 1, SELECT_FILE = 0;
 
+
+    private boolean fabExpanded = false;
+    private FloatingActionButton fabSettings, fabMission, fabReminders;
+    private LinearLayout layoutFabMission;
+    private LinearLayout layoutFabReminders;
+
+    Button DialogSave, Show;
+    TextView Myname;
+    Dialog ThisDialog;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -152,7 +168,100 @@ public class MainActivity extends AppCompatActivity {
                 popup.show();//showing popup menu
             }
         });//closing the setOnClickListener method
+
+        //floating button
+        fabSettings = (FloatingActionButton) this.findViewById(R.id.fabSetting);
+        fabMission = (FloatingActionButton) this.findViewById(R.id.fabMission);
+        fabReminders= (FloatingActionButton) this.findViewById(R.id.fabReminders);
+        layoutFabMission = (LinearLayout) this.findViewById(R.id.layoutFabMission);
+        layoutFabReminders = (LinearLayout) this.findViewById(R.id.layoutFabReminders);
+        //layoutFabSettings = (LinearLayout) this.findViewById(R.id.layoutFabSettings);
+
+
+        //When main Fab (Settings) is clicked, it expands if not expanded already.
+        //Collapses if main FAB was open already.
+        //This gives FAB (Settings) open/close behavior
+        fabSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (fabExpanded == true){
+                    closeSubMenusFab();
+                } else {
+                    openSubMenusFab();
+                }
+            }
+        });
+
+
+        fabReminders.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ThisDialog = new Dialog(MainActivity.this);
+                ThisDialog.setTitle("Promise");
+                ThisDialog.setContentView(R.layout.reminder_dialog);
+                final EditText Write = (EditText)ThisDialog.findViewById(R.id.write);
+                Button SaveMyName = (Button)ThisDialog.findViewById(R.id.SaveNow);
+                Write.setEnabled(true);
+                SaveMyName.setEnabled(true);
+
+                SaveMyName.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        TextView Daily = (TextView)findViewById(R.id.dailyTask);
+                        Daily.setText(Write.getText());
+                        SharedPrefesSAVE(Write.getText().toString());
+                        ThisDialog.cancel();
+                    }
+                });
+                ThisDialog.show();
+            }
+        });
+      /*  Show.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences SP = getApplicationContext().getSharedPreferences("NAME", 0);
+                Myname.setText(SP.getString("Name", null));
+            }
+        });
+*/
+
+        fabMission.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               // startActivity(new Intent(StartActivity.this, Missions.class));
+                ThisDialog = new Dialog(MainActivity.this);
+                ThisDialog.setTitle("Promise");
+                ThisDialog.setContentView(R.layout.mission_dialog);
+                final EditText Write = (EditText)ThisDialog.findViewById(R.id.titleM);
+                Button SaveMyName = (Button)ThisDialog.findViewById(R.id.SaveNow);
+                Write.setEnabled(true);
+                SaveMyName.setEnabled(true);
+
+                SaveMyName.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        CheckBox check = (CheckBox)findViewById(R.id.Check1) ;
+                        CheckBox check2 = (CheckBox)findViewById(R.id.Check2) ;
+
+                        check.setText(Write.getText());
+
+                        SharedPrefesSAVE(Write.getText().toString());
+                        ThisDialog.cancel();
+                    }
+                });
+                ThisDialog.show();
+            }
+
+        });
+
+
+        //Only main FAB is visible in the beginning
+        closeSubMenusFab();
+
+
     }
+
+
 
     private String getStringFromArrayListString(ArrayList<String> strings) {
         String result = "";
@@ -247,11 +356,28 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    public void floatButton(View view) {
+    //closes FAB submenus
+    private void closeSubMenusFab(){
+        layoutFabMission.setVisibility(View.INVISIBLE);
+        layoutFabReminders.setVisibility(View.INVISIBLE);
+        fabSettings.setImageResource(R.drawable.ic_settings_black_24dp);
+        fabExpanded = false;
+    }
 
+    //Opens FAB submenus
+    private void openSubMenusFab(){
+        layoutFabMission.setVisibility(View.VISIBLE);
+        layoutFabReminders.setVisibility(View.VISIBLE);
+        //Change settings icon to 'X' icon
+        fabSettings.setImageResource(R.drawable.ic_close_black_24dp);
+        fabExpanded = true;
     }
 
 
-
+    public void SharedPrefesSAVE(String Name){
+        SharedPreferences prefs = getApplicationContext().getSharedPreferences("NAME", 0);
+        SharedPreferences.Editor prefEDIT = prefs.edit();
+        prefEDIT.putString("Name", Name);
+        prefEDIT.commit();
+    }
 }
-

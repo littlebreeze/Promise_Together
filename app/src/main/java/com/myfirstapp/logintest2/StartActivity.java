@@ -1,6 +1,5 @@
 package com.myfirstapp.logintest2;
 
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -38,6 +37,8 @@ import android.view.View.OnClickListener;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.myfirstapp.logintest2.MainActivity;
+import com.myfirstapp.logintest2.R;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -49,7 +50,7 @@ import java.io.OutputStream;
 //daily task, missions 보여주기
 public class StartActivity extends AppCompatActivity {
 
-    TextView txtPhone;
+    /*TextView txtPhone;
     ImageButton button1;
 
     ImageView imageView;
@@ -99,7 +100,7 @@ public class StartActivity extends AppCompatActivity {
                 //registering popup with OnMenuItemClickListener
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     public boolean onMenuItemClick(MenuItem item) {
-                       Toast.makeText(StartActivity.this,"You Clicked : " + item.getTitle(),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(StartActivity.this,"You Clicked : " + item.getTitle(),Toast.LENGTH_SHORT).show();
 
                         final CharSequence[] items={"Camera","Gallery", "Cancel"};
 
@@ -128,7 +129,7 @@ public class StartActivity extends AppCompatActivity {
                         });
                         builder.show();
 
-                    return true;
+                        return true;
                     }
 
                 });
@@ -193,7 +194,7 @@ public class StartActivity extends AppCompatActivity {
         });
 */
 
-        fabMission.setOnClickListener(new View.OnClickListener() {
+  /*      fabMission.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(StartActivity.this, Missions.class));
@@ -208,29 +209,29 @@ public class StartActivity extends AppCompatActivity {
     }
 
 
-   @Override
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == R.id.action_sign_out){
             signOut();
         }
 
-       int id = item.getItemId();
+        int id = item.getItemId();
 
-       if (id == R.id.action_settings) {
-           return true;
-       }
-       // Handle action bar item clicks here. The action bar will
-       // automatically handle clicks on the Home/Up button, so long
-       // as you specify a parent activity in AndroidManifest.xml.
-       int id2 = item.getItemId();
+        if (id == R.id.action_settings) {
+            return true;
+        }
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id2 = item.getItemId();
 
-       //noinspection SimplifiableIfStatement
-       if (id2 == R.id.action_settings) {
-           return true;
-       }
+        //noinspection SimplifiableIfStatement
+        if (id2 == R.id.action_settings) {
+            return true;
+        }
 
 
-       return super.onOptionsItemSelected(item);
+        return super.onOptionsItemSelected(item);
 
     }
 
@@ -306,6 +307,6 @@ public class StartActivity extends AppCompatActivity {
         SharedPreferences.Editor prefEDIT = prefs.edit();
         prefEDIT.putString("Name", Name);
         prefEDIT.commit();
-    }
+    }*/
 }
 

@@ -84,7 +84,7 @@
 
 
     <CheckBox
-        android:id="@+id/Check"
+        android:id="@+id/Check3"
         style="@android:style/Widget.CompoundButton.CheckBox"
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -114,7 +114,7 @@
         app:layout_constraintTop_toBottomOf="@+id/Check3" />
 
     <CheckBox
-        android:id="@+id/Check3"
+        android:id="@+id/Check1"
         android:layout_width="match_parent"
         android:layout_height="39dp"
         android:layout_marginTop="8dp"
