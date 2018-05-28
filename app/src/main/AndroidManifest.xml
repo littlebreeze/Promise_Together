@@ -4,12 +4,13 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
 
-    <uses-feature android:name="android.hardware.camera" android:required="false" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.MEDIA_CONTENT_CONTROL" />
-
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
@@ -55,6 +56,8 @@
         <activity android:name=".Tutorial1" />
         <activity android:name=".Tutorial2" />
         <activity android:name=".Tutorial3" />
+        <activity android:name=".Missions" />
+        <activity android:name=".CalendarActivity"></activity>
     </application>
 
 </manifest>

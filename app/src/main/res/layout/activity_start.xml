@@ -19,8 +19,8 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <Button
-        android:id="@+id/calendar"
+    <ImageButton
+        android:id="@+id/buttonimage_calendar"
         android:layout_width="53dp"
         android:layout_height="57dp"
         android:layout_marginBottom="8dp"
@@ -128,6 +128,17 @@
 
     <include layout="@layout/content_main" />
     <include layout="@layout/layout_fab_submenu"/>
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="57dp"
+        android:layout_height="54dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/calendar"
+        tools:layout_editor_absoluteY="56dp" />
 
 
 </android.support.constraint.ConstraintLayout>

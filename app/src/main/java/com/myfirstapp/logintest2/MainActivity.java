@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -44,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
     TextView txtPhone;
     ImageButton button1;
+    ImageButton button_calendar;
 
     ImageView imageView;
     Integer REQUEST_CAMERA = 1, SELECT_FILE = 0;
@@ -152,6 +154,10 @@ public class MainActivity extends AppCompatActivity {
                 popup.show();//showing popup menu
             }
         });//closing the setOnClickListener method
+
+        button_calendar = (ImageButton)findViewById(R.id.buttonimage_calendar);
+        // d
+
     }
 
     private String getStringFromArrayListString(ArrayList<String> strings) {
@@ -226,6 +232,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode== Activity.RESULT_OK){
+
 
 
             if(requestCode==REQUEST_CAMERA){
