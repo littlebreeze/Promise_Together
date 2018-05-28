@@ -58,12 +58,13 @@
 
     <TextView
         android:id="@+id/dailyTask"
-        android:layout_width="0dp"
-        android:layout_height="120dp"
+        android:layout_width="379dp"
+        android:layout_height="211dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Daily Task"
+        android:background="@drawable/dotline"
+        android:text="        Daily Task"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -74,25 +75,13 @@
         android:layout_width="368dp"
         android:layout_height="80dp"
         android:layout_marginTop="8dp"
+
         android:background="@drawable/our_missions"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dailyTask" />
 
-
-    android:id="@+id/gridLayout2"
-    android:layout_width="0dp"
-    android:layout_height="150dp"
-    android:layout_marginEnd="8dp"
-    android:layout_marginStart="8dp"
-
-    android:columnCount="1"
-    android:rowCount="4"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="0.5"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/button5">
 
     <CheckBox
         android:id="@+id/Check"
@@ -137,33 +126,8 @@
         app:layout_constraintTop_toBottomOf="@+id/button5" />
 
 
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floatingActionButton"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:clickable="true"
-        android:tint="@color/color1"
-        app:backgroundTint="@color/color2"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-
-        app:rippleColor="@color/color1"
-        app:srcCompat="@android:drawable/ic_input_add"
-        app:pressedTranslationZ="12dp"/>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floatingActionButton2"
-        android:layout_width="53dp"
-        android:layout_height="57dp"
-        android:layout_marginBottom="12dp"
-        android:layout_marginEnd="16dp"
-        android:clickable="true"
-        app:layout_constraintBottom_toTopOf="@+id/floatingActionButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/calendar" />
+    <include layout="@layout/content_main" />
+    <include layout="@layout/layout_fab_submenu"/>
 
 
 </android.support.constraint.ConstraintLayout>
