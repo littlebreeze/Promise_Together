@@ -39,7 +39,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
         android:adjustViewBounds="true"
-        android:background="@drawable/profile2"
+        android:background="@drawable/profile"
         android:scaleType="fitXY"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
@@ -128,17 +128,6 @@
 
     <include layout="@layout/content_main" />
     <include layout="@layout/layout_fab_submenu"/>
-
-    <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="57dp"
-        android:layout_height="54dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/calendar"
-        tools:layout_editor_absoluteY="56dp" />
 
 
 </android.support.constraint.ConstraintLayout>

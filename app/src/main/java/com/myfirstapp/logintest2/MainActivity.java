@@ -156,8 +156,18 @@ public class MainActivity extends AppCompatActivity {
         });//closing the setOnClickListener method
 
         button_calendar = (ImageButton)findViewById(R.id.buttonimage_calendar);
-        // d
+        button_calendar.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                openCalendar();
+            }
+        });
 
+    } // onCreate
+
+    public void openCalendar() {
+        Intent intent2 = new Intent(this, CalendarActivity.class);
+        startActivity(intent2);
     }
 
     private String getStringFromArrayListString(ArrayList<String> strings) {
