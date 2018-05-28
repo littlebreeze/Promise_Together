@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color1"
-    tools:context="com.myfirstapp.logintest2.JoinActivity">
+    tools:context="com.myfirstapp.logintest2.GroupRequestActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolBar"
