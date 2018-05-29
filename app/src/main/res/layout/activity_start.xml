@@ -88,47 +88,15 @@
         android:textSize="35sp"
         app:layout_constraintTop_toBottomOf="@+id/text_dailyTask"/>
 
-    <CheckBox
-        android:id="@+id/Check1"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/our_missions_recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:buttonTint="@color/color2"
-        android:text="Buy sandwich ingredients at E-mart"
+        android:layout_height="0dp"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_OurMissions" />
-
-    <CheckBox
-        android:id="@+id/Check2"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:buttonTint="@color/color2"
-        android:text="Buy light bulb for bathroom"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Check1" />
-
-    <CheckBox
-        android:id="@+id/Check3"
-        style="@android:style/Widget.CompoundButton.CheckBox"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:buttonTint="@color/color2"
-        android:checked="false"
-        android:hint="@string/action_settings"
-        android:text="Order mineral water at Tmon"
-        app:layout_constraintTop_toBottomOf="@+id/Check2"
-         />
+        app:layout_constraintTop_toBottomOf="@+id/text_OurMissions"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 
     <include layout="@layout/content_main" />

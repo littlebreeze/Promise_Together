@@ -15,6 +15,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -26,6 +27,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.PopupMenu;
@@ -34,13 +36,17 @@ import android.support.design.widget.FloatingActionButton;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 //daily task, missions 보여주기
@@ -78,7 +84,6 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu,menu);
         return true;
-
     }
 
     @Override
@@ -100,15 +105,6 @@ public class MainActivity extends AppCompatActivity {
 
         t3 = (TextView)findViewById(R.id.text_dailyTask);
         t3.setTypeface(Binggrae);
-
-        check1 = (TextView)findViewById(R.id.Check1);
-        check1.setTypeface(Binggrae);
-
-        check2 = (TextView)findViewById(R.id.Check2);
-        check2.setTypeface(Binggrae);
-
-        check3 = (TextView)findViewById(R.id.Check3);
-        check3.setTypeface(Binggrae);
 
         //이전 액티비티(LoginActivity.class)에서 넘겨준 사용자의 UID 값을 받아온다
         Intent intent = getIntent();
@@ -145,6 +141,19 @@ public class MainActivity extends AppCompatActivity {
                         mDailyTaskTextView.setText(getStringFromArrayListString(titles));
                     }
                 });
+
+
+        RecyclerView ourMissionsListview = (RecyclerView) findViewById(R.id.our_missions_recyclerview);
+        ArrayList<Data_Our_Missions> missions = new ArrayList<>();
+        missions.add(new Data_Our_Missions(false, "테스트임"));
+        missions.add(new Data_Our_Missions(true, "2"));
+        missions.add(new Data_Our_Missions(true, "3"));
+        missions.add(new Data_Our_Missions(false, "4"));
+        missions.add(new Data_Our_Missions(false, "4"));
+        Adapter_Our_Missions adapterOurMissions = new Adapter_Our_Missions(getApplicationContext(), missions);
+        ourMissionsListview.setAdapter(adapterOurMissions);
+
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolBar);
         toolbar.setTitle("Promise Together");
@@ -234,6 +243,28 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);     // 여기서 this는 Activity의 this
+
+        /*// 여기서 부터는 알림창의 속성 설정
+        builder.setTitle("Promise")        // 제목 설정
+                .setView(R.layout.reminder_dialog)
+                .setCancelable(false)
+                .setPositiveButton("확인", new DialogInterface.OnClickListener(){
+                    // 확인 버튼 클릭시 설정
+                    public void onClick(DialogInterface dialog, int whichButton){
+                        finish();
+                    }
+                })
+                .setNegativeButton("취소", new DialogInterface.OnClickListener(){
+                    // 취소 버튼 클릭시 설정
+                    public void onClick(DialogInterface dialog, int whichButton){
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog dialog = builder.create();    // 알림창 객체 생성
+        dialog.show();    // 알림창 띄우기*/
+
+
 
         fabReminders.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -250,14 +281,18 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         TextView Daily = (TextView)findViewById(R.id.text_dailyTask);
-                        Daily.setText(Write.getText());
+                        Daily.setText(Daily.getText().toString() + Write.getText());
                         SharedPrefesSAVE(Write.getText().toString());
+                        //디비 업로드
+                        uploadReminderData(Write.getText().toString());
                         ThisDialog.cancel();
                     }
                 });
                 ThisDialog.show();
             }
         });
+
+
       /*  Show.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -282,11 +317,6 @@ public class MainActivity extends AppCompatActivity {
                 SaveMyName.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        CheckBox check = (CheckBox)findViewById(R.id.Check1) ;
-                        CheckBox check2 = (CheckBox)findViewById(R.id.Check2) ;
-
-                        check.setText(Write.getText());
-
                         SharedPrefesSAVE(Write.getText().toString());
                         ThisDialog.cancel();
                     }
@@ -422,4 +452,31 @@ public class MainActivity extends AppCompatActivity {
         prefEDIT.putString("Name", Name);
         prefEDIT.commit();
     }
+
+    private void uploadReminderData(String title) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        Map<String, Object> promiseAlways = new HashMap<>();
+        promiseAlways.put("groupId", 1); //todo groupId
+        promiseAlways.put("title", title);
+
+        db.collection("promiseAlways")
+                .add(promiseAlways)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                        Toast.makeText(getApplicationContext(), "success", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error adding document", e);
+                        Toast.makeText(getApplicationContext(), "fail", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+
 }
