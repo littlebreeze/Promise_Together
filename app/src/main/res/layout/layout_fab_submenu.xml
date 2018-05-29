@@ -114,7 +114,7 @@
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_gravity="bottom|end"
-            android:src="@drawable/icon_plus"
+            android:src="@drawable/icon_add"
             app:backgroundTint="@color/color6"
             app:fabSize="normal" />
 
