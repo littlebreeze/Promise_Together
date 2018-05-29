@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -21,109 +22,113 @@
 
     <ImageButton
         android:id="@+id/buttonimage_calendar"
-        android:layout_width="53dp"
-        android:layout_height="57dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="47dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
         android:background="@drawable/calendar"
         android:backgroundTint="@color/color2"
-        app:layout_constraintBottom_toTopOf="@+id/button6"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolBar" />
+        app:layout_constraintStart_toStartOf="@+id/text_dailyTask"
+        app:layout_constraintTop_toTopOf="@+id/toolBar" />
 
     <ImageButton
         android:id="@+id/profile"
-        android:layout_width="57dp"
-        android:layout_height="54dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="40dp"
         android:adjustViewBounds="true"
         android:background="@drawable/profile"
         android:scaleType="fitXY"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolBar" />
-
-    <Button
-        android:id="@+id/button6"
-        android:layout_width="357dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/daily_remainders"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.703"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile" />
+        app:layout_constraintTop_toTopOf="@+id/toolBar" />
 
     <TextView
-        android:id="@+id/dailyTask"
-        android:layout_width="379dp"
-        android:layout_height="211dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/dotline"
-        android:text="        Daily Task"
-        android:textSize="24sp"
+        android:id="@+id/text_DailyReminder"
+        android:background="@drawable/bg_dailyreminders"
+        android:layout_width="match_parent"
+        android:layout_height= "55dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:text="Daily Reminders"
+        android:textColor="@color/color2"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textSize="35sp"
+        app:layout_constraintTop_toBottomOf="@+id/buttonimage_calendar"/>
+
+    <TextView
+        android:id="@+id/text_dailyTask"
+        android:background="@drawable/bg_contents"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_margin = "10dp"
+        android:text="Daily Task"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:textColor="@color/darkblue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button6" />
+        app:layout_constraintTop_toBottomOf="@+id/text_DailyReminder" />
 
-    <Button
-        android:id="@+id/button5"
-        android:layout_width="368dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="8dp"
+    <TextView
+        android:id="@+id/text_OurMissions"
+        android:background="@drawable/bg_ourmissions"
+        android:layout_width="match_parent"
+        android:layout_height= "55dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:text="Our Missions"
+        android:textColor="@color/color2"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textSize="35sp"
+        app:layout_constraintTop_toBottomOf="@+id/text_dailyTask"/>
 
-        android:background="@drawable/our_missions"
+    <CheckBox
+        android:id="@+id/Check1"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:buttonTint="@color/color2"
+        android:text="Buy sandwich ingredients at E-mart"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dailyTask" />
+        app:layout_constraintTop_toBottomOf="@+id/text_OurMissions" />
 
+    <CheckBox
+        android:id="@+id/Check2"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:buttonTint="@color/color2"
+        android:text="Buy light bulb for bathroom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Check1" />
 
     <CheckBox
         android:id="@+id/Check3"
         style="@android:style/Widget.CompoundButton.CheckBox"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:buttonTint="@color/color2"
         android:checked="false"
         android:hint="@string/action_settings"
-        android:text="task3"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Order mineral water at Tmon"
         app:layout_constraintTop_toBottomOf="@+id/Check2"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <CheckBox
-        android:id="@+id/Check2"
-        android:layout_width="match_parent"
-        android:layout_height="39dp"
-        android:layout_marginTop="8dp"
-        android:buttonTint="@color/color2"
-        android:text="task2"
-        android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Check3" />
-
-    <CheckBox
-        android:id="@+id/Check1"
-        android:layout_width="match_parent"
-        android:layout_height="39dp"
-        android:layout_marginTop="8dp"
-        android:buttonTint="@color/color2"
-        android:text="task1"
-        android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button5" />
+         />
 
 
     <include layout="@layout/content_main" />

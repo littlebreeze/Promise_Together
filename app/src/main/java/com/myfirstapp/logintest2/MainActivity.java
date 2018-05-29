@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.provider.MediaStore;
@@ -45,6 +46,13 @@ import java.util.Map;
 //daily task, missions 보여주기
 public class MainActivity extends AppCompatActivity {
 
+    TextView t1;
+    TextView t2;
+    TextView t3;
+    TextView check1;
+    TextView check2;
+    TextView check3;
+
     private static final String TAG = "MainActivity";
 
     private String UID;
@@ -78,11 +86,35 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
+        Typeface HoonTopBI = Typeface.createFromAsset(getAssets(), "fonts/HoonTop Bold italic.ttf");
+        Typeface BebasNeue = Typeface.createFromAsset(getAssets(), "fonts/BebasNeue.otf");
+        Typeface HoonSaemaulundongR = Typeface.createFromAsset(getAssets(), "fonts/HoonSaemaulundongR.ttf");
+        Typeface Binggrae = Typeface.createFromAsset(getAssets(), "fonts/Binggrae.ttf");
+        Typeface BinggraeB = Typeface.createFromAsset(getAssets(), "fonts/Binggrae-Bold.ttf");
+
+        t1 = (TextView)findViewById(R.id.text_OurMissions);
+        t1.setTypeface(HoonTopBI);
+
+        t2 = (TextView)findViewById(R.id.text_DailyReminder);
+        t2.setTypeface(HoonTopBI);
+
+        t3 = (TextView)findViewById(R.id.text_dailyTask);
+        t3.setTypeface(Binggrae);
+
+        check1 = (TextView)findViewById(R.id.Check1);
+        check1.setTypeface(Binggrae);
+
+        check2 = (TextView)findViewById(R.id.Check2);
+        check2.setTypeface(Binggrae);
+
+        check3 = (TextView)findViewById(R.id.Check3);
+        check3.setTypeface(Binggrae);
+
         //이전 액티비티(LoginActivity.class)에서 넘겨준 사용자의 UID 값을 받아온다
         Intent intent = getIntent();
         UID = intent.getStringExtra(STATIC.EXTRA_UID);
 
-        final TextView mDailyTaskTextView = (TextView) findViewById(R.id.dailyTask);
+        final TextView mDailyTaskTextView = (TextView) findViewById(R.id.text_dailyTask);
 
         //화면에 들어갈 데이터를 받아와야하지
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -217,7 +249,7 @@ public class MainActivity extends AppCompatActivity {
                 SaveMyName.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        TextView Daily = (TextView)findViewById(R.id.dailyTask);
+                        TextView Daily = (TextView)findViewById(R.id.text_dailyTask);
                         Daily.setText(Write.getText());
                         SharedPrefesSAVE(Write.getText().toString());
                         ThisDialog.cancel();

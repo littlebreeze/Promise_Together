@@ -20,8 +20,8 @@
 
     <Button
         android:id="@+id/button2"
-        android:layout_width="160dp"
-        android:layout_height="70dp"
+        android:layout_width="234dp"
+        android:layout_height="67dp"
         android:layout_marginTop="8dp"
 
         android:background="@drawable/join"
@@ -50,8 +50,8 @@
 
     <Button
         android:id="@+id/start_button"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
+        android:layout_width="127dp"
+        android:layout_height="49dp"
         android:background="@drawable/start"
         android:backgroundTint="@color/color2"
         android:onClick="start"

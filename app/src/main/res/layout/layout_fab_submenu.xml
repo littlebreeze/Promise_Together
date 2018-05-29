@@ -114,8 +114,8 @@
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_gravity="bottom|end"
-            android:src="@drawable/ic_settings_black_24dp"
-            app:backgroundTint="#6e98bc"
+            android:src="@drawable/icon_close"
+            app:backgroundTint="@color/color6"
             app:fabSize="normal" />
 
     </LinearLayout>

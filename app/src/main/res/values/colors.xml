@@ -9,11 +9,12 @@
     <color name="color3">#bfd641</color>
     <color name="skyblue">#C7E8FF</color>
     <color name = "mint">#74E2C7</color>
+    <color name = "darkblue">#091F30</color>
     <color name="color5">#4b7497</color>
     <color name="color6">#c61830</color>
     <color name="color7">#ff970d</color>
     <color name="transparent">#00000000</color>
-    <drawable name="bg_screen1">#B33395ff</drawable>
+    <drawable name="bg_screen1">#B33395ffq</drawable>
 
     <color name="fui_transparent">#c0c0c0</color>
 
