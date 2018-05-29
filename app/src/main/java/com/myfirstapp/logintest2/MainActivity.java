@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
     TextView txtPhone;
     ImageButton button1;
+    ImageButton button_calendar;
 
     ImageView imageView;
     Integer REQUEST_CAMERA = 1, SELECT_FILE = 0;
@@ -168,6 +169,15 @@ public class MainActivity extends AppCompatActivity {
                 popup.show();//showing popup menu
             }
         });//closing the setOnClickListener method
+
+        button_calendar = (ImageButton)findViewById(R.id.buttonimage_calendar);
+        button_calendar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                Intent intentLoadNewActivity = new Intent(MainActivity.this, CalendarActivity.class);
+                startActivity(intentLoadNewActivity);
+            }
+        });
 
         //floating button
         fabSettings = (FloatingActionButton) this.findViewById(R.id.fabSetting);
