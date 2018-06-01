@@ -23,7 +23,7 @@
 - [X] Show Reminders and Missions List
 - [X] Add Calendar
 - [ ] Voice Recognition (by shaking)
-- [ ]Reading Function
+- [ ] Reading Function
 ---
 - [ ] Add Navigation Drawer function
 - [ ] Make profile picture function
