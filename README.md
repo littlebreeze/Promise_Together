@@ -5,6 +5,7 @@
 
 ## We did...
 - [X] UI Design
+- [ ] Fix general design (remove png design)
 ---
 - [X] Start Page
 - [ ] Tutorial Page (fill)
@@ -15,12 +16,20 @@
 - [X] Make Member Database
 - [ ] Make Group Database
 - [X] Make 'Daily Reminders' and 'Our Missions' Database 
+- [ ] Make individual operation possible (Promises) - edit, rename
 ---
 - [X] Operating the Function of Profile Picture
 - [X] Add Text Editing Function of 'Our Reminders'
 - [X] Show Reminders and Missions List
-- [ ] Add Calendar
-- [ ] Voice Recognition & Reading Function
+- [X] Add Calendar
+- [ ] Voice Recognition (by shaking)
+- [ ] Reading Function
+---
+- [ ] Add Navigation Drawer function
+- [ ] Make profile picture function
+- [ ] Insert calendar function
+- [ ] Insert sign-out function
+- [ ] Make group connection function
 
 ## member
 Syahirah(@syahirah29) <br>
