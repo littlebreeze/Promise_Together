@@ -1,6 +1,7 @@
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/custom_listview_todo_framelayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingTop="8dp"
@@ -9,7 +10,7 @@
     android:paddingEnd="20dp">
 
     <CheckBox
-        android:id="@+id/custom_list_view_our_missions_checkbox"
+        android:id="@+id/custom_listview_todo_checkbox"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:buttonTint="@color/color2"

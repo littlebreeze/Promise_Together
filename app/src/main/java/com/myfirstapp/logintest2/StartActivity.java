@@ -51,7 +51,7 @@ import java.io.OutputStream;
 public class StartActivity extends AppCompatActivity {
 
     /*TextView txtPhone;
-    ImageButton button1;
+    ImageButton mProfileButton;
 
     ImageView imageView;
     Integer REQUEST_CAMERA=1, SELECT_FILE=0;
@@ -63,7 +63,7 @@ public class StartActivity extends AppCompatActivity {
 
     Button DialogSave, Show;
     TextView Myname;
-    Dialog ThisDialog;
+    Dialog thisDialog;
 
 
     @Override
@@ -87,13 +87,13 @@ public class StartActivity extends AppCompatActivity {
 
 
         //profile picture's menu
-        button1 = (ImageButton) findViewById(R.id.profile);
-        button1.setOnClickListener(new OnClickListener() {
+        mProfileButton = (ImageButton) findViewById(R.id.profile);
+        mProfileButton.setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 //Creating the instance of PopupMenu
-                PopupMenu popup = new PopupMenu(StartActivity.this, button1);
+                PopupMenu popup = new PopupMenu(StartActivity.this, mProfileButton);
                 //Inflating the Popup using xml file
                 popup.getMenuInflater().inflate(R.menu.picture_menu, popup.getMenu());
 
@@ -166,11 +166,11 @@ public class StartActivity extends AppCompatActivity {
         fabReminders.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ThisDialog = new Dialog(StartActivity.this);
-                ThisDialog.setTitle("Promise");
-                ThisDialog.setContentView(R.layout.reminder_dialog);
-                final EditText Write = (EditText)ThisDialog.findViewById(R.id.write);
-                Button SaveMyName = (Button)ThisDialog.findViewById(R.id.SaveNow);
+                thisDialog = new Dialog(StartActivity.this);
+                thisDialog.setTitle("Promise");
+                thisDialog.setContentView(R.layout.reminder_dialog);
+                final EditText Write = (EditText)thisDialog.findViewById(R.id.write);
+                Button SaveMyName = (Button)thisDialog.findViewById(R.id.SaveNow);
 
                 Write.setEnabled(true);
                 SaveMyName.setEnabled(true);
@@ -179,10 +179,10 @@ public class StartActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         SharedPrefesSAVE(Write.getText().toString());
-                        ThisDialog.cancel();
+                        thisDialog.cancel();
                     }
                 });
-                ThisDialog.show();
+                thisDialog.show();
             }
         });
       /*  Show.setOnClickListener(new View.OnClickListener() {
@@ -269,13 +269,13 @@ public class StartActivity extends AppCompatActivity {
 
                 Bundle bundle = data.getExtras();
                 final Bitmap bmp = (Bitmap) bundle.get("data");
-                button1.setImageBitmap(bmp);
+                mProfileButton.setImageBitmap(bmp);
 
 
             }else if(requestCode==SELECT_FILE){
 
                 Uri selectedImageUri = data.getData();
-                button1.setImageURI(selectedImageUri);
+                mProfileButton.setImageURI(selectedImageUri);
 
             }
 

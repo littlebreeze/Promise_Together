@@ -9,7 +9,6 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
@@ -18,18 +17,13 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.PopupMenu;
@@ -41,7 +35,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -54,20 +47,18 @@ import java.util.Map;
 //daily task, missions 보여주기
 public class MainActivity extends AppCompatActivity {
 
-    TextView t1;
-    TextView t2;
-    TextView t3;
+    private static final String TAG = MainActivity.class.getSimpleName();
 
-    private static final String TAG = "MainActivity";
+    private FirebaseFirestore db;
+
+    private TextView mTodo, mNotice, mNoticeContent;
+    private RecyclerView mTodoList;
 
     private String UID;
 
-    TextView txtPhone;
-    ImageButton button1;
-    ImageButton button_calendar;
+    private ImageButton mProfileButton, mCalendarButton;
 
-    ImageView imageView;
-    Integer REQUEST_CAMERA = 1, SELECT_FILE = 0;
+    private int REQUEST_CAMERA = 1, SELECT_FILE = 0;
 
 
     private boolean fabExpanded = false;
@@ -77,133 +68,107 @@ public class MainActivity extends AppCompatActivity {
 
     Button DialogSave, Show;
     TextView Myname;
-    Dialog ThisDialog;
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu,menu);
-        return true;
-    }
+    Dialog thisDialog;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_start);
-
-
-        Typeface HoonTopBI = Typeface.createFromAsset(getAssets(), "fonts/HoonTop Bold italic.ttf");
-        Typeface BebasNeue = Typeface.createFromAsset(getAssets(), "fonts/BebasNeue.otf");
-        Typeface HoonSaemaulundongR = Typeface.createFromAsset(getAssets(), "fonts/HoonSaemaulundongR.ttf");
-        Typeface Binggrae = Typeface.createFromAsset(getAssets(), "fonts/Binggrae.ttf");
-        Typeface BinggraeB = Typeface.createFromAsset(getAssets(), "fonts/Binggrae-Bold.ttf");
-
-        t1 = (TextView)findViewById(R.id.text_OurMissions);
-        t1.setTypeface(HoonTopBI);
-
-        t2 = (TextView)findViewById(R.id.text_DailyReminder);
-        t2.setTypeface(HoonTopBI);
-
-        t3 = (TextView)findViewById(R.id.text_dailyTask);
-        t3.setTypeface(Binggrae);
-
-
+        setContentView(R.layout.activity_main);
 
         //이전 액티비티(LoginActivity.class)에서 넘겨준 사용자의 UID 값을 받아온다
         Intent intent = getIntent();
         UID = intent.getStringExtra(STATIC.EXTRA_UID);
 
-        final TextView mDailyTaskTextView = (TextView) findViewById(R.id.text_dailyTask);
 
-        //화면에 들어갈 데이터를 받아와야하지
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        CollectionReference promiseAlwaysRef = db.collection("promiseAlways");
-        int sampleGroupId = 1; //todo sample
+        mTodo = (TextView)findViewById(R.id.main_todo);
+        mNotice = (TextView)findViewById(R.id.main_notice);
+        mNoticeContent = (TextView)findViewById(R.id.main_notice_content);
 
-        db.collection("promiseAlways")
-                .whereEqualTo("groupId", sampleGroupId)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        ArrayList<String> titles = new ArrayList<>();
+        //floating button
+        fabSettings = (FloatingActionButton) this.findViewById(R.id.fabSetting);
+        fabMission = (FloatingActionButton) this.findViewById(R.id.fabMission);
+        fabReminders= (FloatingActionButton) this.findViewById(R.id.fabReminders);
+        layoutFabMission = (LinearLayout) this.findViewById(R.id.layoutFabMission);
+        layoutFabReminders = (LinearLayout) this.findViewById(R.id.layoutFabReminders);
+        //layoutFabSettings = (LinearLayout) this.findViewById(R.id.layoutFabSettings);
 
-                        if (task.isSuccessful()) {
-                            for (DocumentSnapshot document : task.getResult()) {
-                                Log.d(TAG, document.getId() + " => " + document.getData());
+        //폰트 설정
+        initTypefaces();
 
-                                Map<String, Object> data = document.getData();
-                                titles.add(data.get("title").toString());
-                            }
+        //여기서부터 이제 DB에서 정보 받아와서 지정하는 과정
+        int groupID = 1; //todo sample group id
 
-                        } else {
-                            Log.d(TAG, "Error getting documents: ", task.getException());
-                            titles.add("Error getting documents: " + task.getException());
-                        }
+        //Notice(Daily Reminders)를 다운로드 받고, 성공하면 mNoticeContent에 텍스트를 지정함
+        downloadNoticeContent(groupID, new NoticeCallback() {
+            @Override
+            public void onSuccess(String data) {
+                mNoticeContent.setText(data);
+            }
+        });
 
-                        mDailyTaskTextView.setText(getStringFromArrayListString(titles));
-                    }
-                });
-
-
-        RecyclerView ourMissionsListview = (RecyclerView) findViewById(R.id.our_missions_recyclerview);
-        ArrayList<Data_Our_Missions> missions = new ArrayList<>();
-        missions.add(new Data_Our_Missions(false, "테스트임"));
-        missions.add(new Data_Our_Missions(true, "2"));
-        missions.add(new Data_Our_Missions(true, "3"));
-        missions.add(new Data_Our_Missions(false, "4"));
-        missions.add(new Data_Our_Missions(false, "4"));
-        Adapter_Our_Missions adapterOurMissions = new Adapter_Our_Missions(getApplicationContext(), missions);
-        ourMissionsListview.setAdapter(adapterOurMissions);
+        //TodoList(Our Missions)를 다운로드 받고, 성공하면 mTodoList에 텍스트를 지정함
+        final RecyclerView mTodoList = (RecyclerView) findViewById(R.id.main_todo_recyclerview);
+        downloadTodoList(groupID, new TodoCallback() {
+            @Override
+            public void onSuccess(ArrayList<TODO> todos) {
+                Adapter_Todo adapterTodo = new Adapter_Todo(getApplicationContext(), todos);
+                mTodoList.setAdapter(adapterTodo);
+            }
+        });
 
 
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolBar);
-        toolbar.setTitle("Promise Together");
-        setSupportActionBar(toolbar);
 
         //profile picture's menu
-        button1 = (ImageButton) findViewById(R.id.profile);
-        button1.setOnClickListener(new OnClickListener() {
+        mProfileButton = (ImageButton) findViewById(R.id.main_profile);
+        mProfileButton.setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 //Creating the instance of PopupMenu
-                PopupMenu popup = new PopupMenu(MainActivity.this, button1);
+                PopupMenu popup = new PopupMenu(MainActivity.this, mProfileButton);
                 //Inflating the Popup using xml file
                 popup.getMenuInflater().inflate(R.menu.picture_menu, popup.getMenu());
 
                 //registering popup with OnMenuItemClickListener
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     public boolean onMenuItemClick(MenuItem item) {
-                        Toast.makeText(MainActivity.this,"You Clicked : " + item.getTitle(),Toast.LENGTH_SHORT).show();
+                        switch (item.getItemId()) {
+                            case R.id.take_picture:
+                                final CharSequence[] items={"Camera","Gallery", "Cancel"};
 
-                        final CharSequence[] items={"Camera","Gallery", "Cancel"};
+                                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                                builder.setTitle("Add Image");
 
-                        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                        builder.setTitle("Add Image");
+                                builder.setItems(items, new DialogInterface.OnClickListener() {
 
-                        builder.setItems(items, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        if (items[i].equals("Camera")) {
 
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                if (items[i].equals("Camera")) {
+                                            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                                            startActivityForResult(intent, REQUEST_CAMERA);
 
-                                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                                    startActivityForResult(intent, REQUEST_CAMERA);
+                                        } else if (items[i].equals("Gallery")) {
 
-                                } else if (items[i].equals("Gallery")) {
+                                            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                                            intent.setType("image/*");
+                                            startActivityForResult(intent, SELECT_FILE);
 
-                                    Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                                    intent.setType("image/*");
-                                    startActivityForResult(intent, SELECT_FILE);
+                                        } else if (items[i].equals("Cancel")) {
+                                            dialogInterface.dismiss();
+                                        }
+                                    }
+                                });
+                                builder.show();
+                                break;
 
-                                } else if (items[i].equals("Cancel")) {
-                                    dialogInterface.dismiss();
-                                }
-                            }
-                        });
-                        builder.show();
+                            case R.id.sign_out:
+                                signOut();
+                                break;
+
+                        }
 
                         return true;
                     }
@@ -214,8 +179,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });//closing the setOnClickListener method
 
-        button_calendar = (ImageButton)findViewById(R.id.buttonimage_calendar);
-        button_calendar.setOnClickListener(new View.OnClickListener() {
+        mCalendarButton = (ImageButton)findViewById(R.id.main_calendar);
+        mCalendarButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v){
                 Intent intentLoadNewActivity = new Intent(MainActivity.this, CalendarActivity.class);
@@ -223,22 +188,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //floating button
-        fabSettings = (FloatingActionButton) this.findViewById(R.id.fabSetting);
-        fabMission = (FloatingActionButton) this.findViewById(R.id.fabMission);
-        fabReminders= (FloatingActionButton) this.findViewById(R.id.fabReminders);
-        layoutFabMission = (LinearLayout) this.findViewById(R.id.layoutFabMission);
-        layoutFabReminders = (LinearLayout) this.findViewById(R.id.layoutFabReminders);
-        //layoutFabSettings = (LinearLayout) this.findViewById(R.id.layoutFabSettings);
-
 
         //When main Fab (Settings) is clicked, it expands if not expanded already.
         //Collapses if main FAB was open already.
         //This gives FAB (Settings) open/close behavior
-        fabSettings.setOnClickListener(new View.OnClickListener() {
+        fabSettings.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (fabExpanded == true){
+                if (fabExpanded){
                     closeSubMenusFab();
                 } else {
                     openSubMenusFab();
@@ -269,29 +226,29 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        fabReminders.setOnClickListener(new View.OnClickListener() {
+        fabReminders.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                ThisDialog = new Dialog(MainActivity.this);
-                ThisDialog.setTitle("Promise");
-                ThisDialog.setContentView(R.layout.reminder_dialog);
-                final EditText Write = (EditText)ThisDialog.findViewById(R.id.write);
-                Button SaveMyName = (Button)ThisDialog.findViewById(R.id.SaveNow);
+                thisDialog = new Dialog(MainActivity.this);
+                thisDialog.setTitle("Promise");
+                thisDialog.setContentView(R.layout.reminder_dialog);
+                final EditText Write = (EditText) thisDialog.findViewById(R.id.write);
+                Button SaveMyName = (Button) thisDialog.findViewById(R.id.SaveNow);
                 Write.setEnabled(true);
                 SaveMyName.setEnabled(true);
 
-                SaveMyName.setOnClickListener(new View.OnClickListener() {
+                SaveMyName.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        TextView Daily = (TextView)findViewById(R.id.text_dailyTask);
+                        TextView Daily = (TextView)findViewById(R.id.main_notice_content);
                         Daily.setText(Daily.getText().toString() + Write.getText());
                         SharedPrefesSAVE(Write.getText().toString());
                         //디비 업로드
                         uploadReminderData(Write.getText().toString());
-                        ThisDialog.cancel();
+                        thisDialog.cancel();
                     }
                 });
-                ThisDialog.show();
+                thisDialog.show();
             }
         });
 
@@ -305,26 +262,26 @@ public class MainActivity extends AppCompatActivity {
         });
 */
 
-        fabMission.setOnClickListener(new View.OnClickListener() {
+        fabMission.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                // startActivity(new Intent(StartActivity.this, Missions.class));
-                ThisDialog = new Dialog(MainActivity.this);
-                ThisDialog.setTitle("Promise");
-                ThisDialog.setContentView(R.layout.mission_dialog);
-                final EditText Write = (EditText)ThisDialog.findViewById(R.id.titleM);
-                Button SaveMyName = (Button)ThisDialog.findViewById(R.id.SaveNow);
+                thisDialog = new Dialog(MainActivity.this);
+                thisDialog.setTitle("Promise");
+                thisDialog.setContentView(R.layout.mission_dialog);
+                final EditText Write = (EditText) thisDialog.findViewById(R.id.titleM);
+                Button SaveMyName = (Button) thisDialog.findViewById(R.id.SaveNow);
                 Write.setEnabled(true);
                 SaveMyName.setEnabled(true);
 
-                SaveMyName.setOnClickListener(new View.OnClickListener() {
+                SaveMyName.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         SharedPrefesSAVE(Write.getText().toString());
-                        ThisDialog.cancel();
+                        thisDialog.cancel();
                     }
                 });
-                ThisDialog.show();
+                thisDialog.show();
             }
 
         });
@@ -333,9 +290,104 @@ public class MainActivity extends AppCompatActivity {
         //Only main FAB is visible in the beginning
         closeSubMenusFab();
 
-
     }
 
+    private interface NoticeCallback {
+        void onSuccess(String data);
+    }
+
+    private interface TodoCallback {
+        void onSuccess(ArrayList<TODO> todos);
+    }
+
+    private void initDB() {
+        db = FirebaseFirestore.getInstance();
+    }
+
+    private void downloadNoticeContent(int id, final NoticeCallback callback) {
+        if (db == null) {
+            initDB();
+        }
+
+        db.collection("promiseAlways")
+                .whereEqualTo("groupId", id)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        ArrayList<String> titles = new ArrayList<>();
+
+                        if (task.isSuccessful()) {
+                            for (DocumentSnapshot document : task.getResult()) {
+                                Map<String, Object> data = document.getData();
+                                titles.add(data.get("title").toString());
+                            }
+                        } else {
+                            titles.add("Error getting documents: " + task.getException());
+                        }
+
+                        callback.onSuccess(getStringFromArrayListString(titles));
+                    }
+                });
+    }
+
+    private void downloadTodoList(int id, final TodoCallback callback) {
+        if (db == null) {
+            initDB();
+        }
+
+        db.collection("promiseOnce")
+                .whereEqualTo("groupId", id)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        ArrayList<TODO> todos = new ArrayList<>();
+
+                        if (task.isSuccessful()) {
+                            for (DocumentSnapshot document : task.getResult()) {
+                                TODO todo = document.toObject(TODO.class);
+                                todo.setDocumentId(document.getId());
+                                todos.add(todo);
+                            }
+                        } else {
+                            //titles.add("Error getting documents: " + task.getException());
+                        }
+
+                        callback.onSuccess(todos);
+                    }
+                });
+    }
+
+    public static void uploadTodoChange(String documentId, boolean checked) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("promiseOnce").document(documentId)
+                .update("checked", checked)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "DocumentSnapshot successfully updated!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error updating document", e);
+                    }
+                });
+    }
+
+    private void initTypefaces() {
+        Typeface HoonTopBI = Typeface.createFromAsset(getAssets(), "fonts/HoonTop Bold italic.ttf");
+        Typeface Binggrae = Typeface.createFromAsset(getAssets(), "fonts/Binggrae.ttf");
+        //Typeface BebasNeue = Typeface.createFromAsset(getAssets(), "fonts/BebasNeue.otf");
+        //Typeface HoonSaemaulundongR = Typeface.createFromAsset(getAssets(), "fonts/HoonSaemaulundongR.ttf");
+        //Typeface BinggraeB = Typeface.createFromAsset(getAssets(), "fonts/Binggrae-Bold.ttf");
+
+        mTodo.setTypeface(HoonTopBI);
+        mNotice.setTypeface(HoonTopBI);
+        mNoticeContent.setTypeface(Binggrae);
+    }
 
 
     private String getStringFromArrayListString(ArrayList<String> strings) {
@@ -347,44 +399,7 @@ public class MainActivity extends AppCompatActivity {
         return result;
     }
 
-    /*
-    public class MyAsyncTask extends AsyncTask<Integer, Integer, Integer> {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        CollectionReference promiseAlwaysRef = db.collection("promiseAlways");
-
-        @Override
-        protected Integer doInBackground(Integer... groupIds) {
-
-            return 0;
-        }
-
-        @Override
-        protected void onPostExecute(Integer result) {
-            super.onPostExecute(result);
-
-
-        }
-    }*/
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.id.action_sign_out){
-            signOut();
-        }
-
-        int id = item.getItemId();
-
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-
-    }
-
-
     private void signOut(){
-
         AuthUI.getInstance().signOut(this)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -394,8 +409,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
     }
-
-
 
     public void calendar(View view) {
 
@@ -409,27 +422,20 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode== Activity.RESULT_OK){
+        if (resultCode == Activity.RESULT_OK){
 
-
-            if(requestCode==REQUEST_CAMERA){
+            if (requestCode == REQUEST_CAMERA){
 
                 Bundle bundle = data.getExtras();
                 final Bitmap bmp = (Bitmap) bundle.get("data");
-                button1.setImageBitmap(bmp);
-
-
-            }else if(requestCode==SELECT_FILE){
-
-                Uri selectedImageUri = data.getData();
-                button1.setImageURI(selectedImageUri);
-
+                mProfileButton.setImageBitmap(bmp);
             }
-
+            else if (requestCode == SELECT_FILE){
+                Uri selectedImageUri = data.getData();
+                mProfileButton.setImageURI(selectedImageUri);
+            }
         }
     }
-
-
 
     //closes FAB submenus
     private void closeSubMenusFab(){
@@ -447,7 +453,6 @@ public class MainActivity extends AppCompatActivity {
         fabSettings.setImageResource(R.drawable.ic_close_black_24dp);
         fabExpanded = true;
     }
-
 
     public void SharedPrefesSAVE(String Name){
         SharedPreferences prefs = getApplicationContext().getSharedPreferences("NAME", 0);
@@ -480,6 +485,5 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
     }
-
 
 }

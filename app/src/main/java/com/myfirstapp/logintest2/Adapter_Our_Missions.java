@@ -26,7 +26,7 @@ public class Adapter_Our_Missions extends RecyclerView.Adapter<Adapter_Our_Missi
         public ViewHolder(Context context, ViewGroup parent) {
             super(LayoutInflater.from(context).inflate(R.layout.custom_listview_our_missions, parent, false));
 
-            checkBox = (CheckBox) itemView.findViewById(R.id.custom_list_view_our_missions_checkbox);
+            checkBox = (CheckBox) itemView.findViewById(R.id.custom_listview_todo_checkbox);
         }
     }
 
