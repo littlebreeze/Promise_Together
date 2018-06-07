@@ -13,4 +13,9 @@
     <string name="Missions">Missions</string>
     <string name="Reminders">Reminders</string>
 
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+
+    <string name = "name_sample">Charlie Puth</string>
+
 </resources>

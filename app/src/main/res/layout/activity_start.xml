@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color1"
+    android:id="@+id/cnstr"
     tools:context="com.myfirstapp.logintest2.StartActivity"
     tools:layout_editor_absoluteY="25dp">
 
@@ -19,6 +20,18 @@
 
 
     </android.support.v7.widget.Toolbar>
+
+    <android.support.design.widget.NavigationView
+        android:id="@+id/navi"
+        android:layout_width = "wrap_content"
+        android:layout_height = "match_parent"
+        android:background="@color/white"
+        app:itemTextColor = "@color/color2"
+        app:itemIconTint="@color/darkblue"
+        app:menu="@menu/menu_drawer"
+        app:headerLayout="@layout/navi_header"
+        android:layout_gravity="start"
+    />
 
     <ImageButton
         android:id="@+id/buttonimage_calendar"

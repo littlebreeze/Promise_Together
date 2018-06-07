@@ -12,6 +12,8 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -55,9 +57,6 @@ public class MainActivity extends AppCompatActivity {
     TextView t1;
     TextView t2;
     TextView t3;
-    TextView check1;
-    TextView check2;
-    TextView check3;
 
     private static final String TAG = "MainActivity";
 
@@ -86,10 +85,12 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
+
 
         Typeface HoonTopBI = Typeface.createFromAsset(getAssets(), "fonts/HoonTop Bold italic.ttf");
         Typeface BebasNeue = Typeface.createFromAsset(getAssets(), "fonts/BebasNeue.otf");
@@ -105,6 +106,8 @@ public class MainActivity extends AppCompatActivity {
 
         t3 = (TextView)findViewById(R.id.text_dailyTask);
         t3.setTypeface(Binggrae);
+
+
 
         //이전 액티비티(LoginActivity.class)에서 넘겨준 사용자의 UID 값을 받아온다
         Intent intent = getIntent();

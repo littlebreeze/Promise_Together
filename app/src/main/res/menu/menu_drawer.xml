@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navi_profile"
+        android:title="Change Profile"
+        android:icon="@drawable/icon_navi_profile"></item>
+    <item
+        android:id="@+id/navi_groupconnect"
+        android:title="Group Connect"
+        android:icon="@drawable/icon_navi_connect"></item>
+    <item
+        android:id="@+id/navi_contact"
+        android:title="Contact"
+        android:icon="@drawable/icon_navi_contact"></item>
+    <item
+        android:id="@+id/navi_calendar"
+        android:title="Calendar"
+        android:icon="@drawable/icon_navi_calendar"></item>
+    <item
+        android:id="@+id/navi_settings"
+        android:title="Settings"
+        android:icon="@drawable/icon_navi_settings"></item>
+    <item
+        android:id="@+id/navi_logout"
+        android:title="Log Out"
+        android:icon="@drawable/icon_navi_logout"></item>
+</menu>
