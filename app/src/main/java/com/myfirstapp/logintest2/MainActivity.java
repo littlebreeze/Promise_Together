@@ -2,7 +2,12 @@ package com.myfirstapp.logintest2;
 
 
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.Dialog;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -41,8 +46,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+
+import java.util.Calendar;
 
 //daily task, missions 보여주기
 public class MainActivity extends AppCompatActivity {
@@ -65,11 +73,13 @@ public class MainActivity extends AppCompatActivity {
     private FloatingActionButton fabSettings, fabMission, fabReminders;
     private LinearLayout layoutFabMission;
     private LinearLayout layoutFabReminders;
+    private Button Save, SaveNow;
 
     Button DialogSave, Show;
     TextView Myname;
     Dialog thisDialog;
 
+    private PendingIntent pendingIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +102,8 @@ public class MainActivity extends AppCompatActivity {
         layoutFabMission = (LinearLayout) this.findViewById(R.id.layoutFabMission);
         layoutFabReminders = (LinearLayout) this.findViewById(R.id.layoutFabReminders);
         //layoutFabSettings = (LinearLayout) this.findViewById(R.id.layoutFabSettings);
+        Save = (Button)this.findViewById( R.id.SaveNow );
+        SaveNow = (Button)this.findViewById( R.id.SaveNow );
 
         //폰트 설정
         initTypefaces();
@@ -246,9 +258,25 @@ public class MainActivity extends AppCompatActivity {
                         //디비 업로드
                         uploadReminderData(Write.getText().toString());
                         thisDialog.cancel();
+
+
+                            String subject = "Reminder Edited!!!";
+                            String body = Write.getText().toString().trim();
+
+                            NotificationManager notif = (NotificationManager) getSystemService( Context.NOTIFICATION_SERVICE );
+                            Notification notify = new Notification.Builder
+                                    ( getApplicationContext() )
+                                    .setContentText( body ).
+                                            setContentTitle( subject )
+                                    .setSmallIcon( R.drawable.ic_stat_icon ).build();
+
+                            notify.flags |= Notification.FLAG_AUTO_CANCEL;
+                            notif.notify( 0, notify );
+
                     }
                 });
                 thisDialog.show();
+
             }
         });
 
@@ -279,8 +307,25 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         SharedPrefesSAVE(Write.getText().toString());
                         thisDialog.cancel();
+                        String subject = "Mission Edited!!!";
+                        String body = Write.getText().toString().trim();
+
+                        NotificationManager notif = (NotificationManager) getSystemService( Context.NOTIFICATION_SERVICE );
+                        Notification notify = new Notification.Builder
+                                ( getApplicationContext() )
+                                .setContentText( body ).
+                                        setContentTitle( subject )
+                                .setSmallIcon( R.drawable.ic_stat_icon ).build();
+
+                        notify.flags |= Notification.FLAG_AUTO_CANCEL;
+                        notif.notify( 0, notify );
+
+
+
                     }
                 });
+
+
                 thisDialog.show();
             }
 
@@ -484,6 +529,22 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "fail", Toast.LENGTH_SHORT).show();
                     }
                 });
+
+        Calendar calendar = Calendar.getInstance();
+
+        calendar.set( Calendar.HOUR_OF_DAY, 17 );
+        calendar.set( Calendar.MINUTE, 07 );
+        calendar.set( Calendar.SECOND, 20 );
+
+        Intent intent = new Intent( getApplicationContext(), MainActivity.class );
+        PendingIntent pendingIntent = PendingIntent.getBroadcast( getApplicationContext(), 100, intent, PendingIntent.FLAG_UPDATE_CURRENT );
+        AlarmManager alarmManager = (AlarmManager) getSystemService( ALARM_SERVICE );
+        alarmManager.setRepeating( AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent );
+
+
     }
+
+
+
 
 }

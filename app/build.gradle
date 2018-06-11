@@ -81,4 +81,5 @@ android {
 dependencies {
     implementation 'com.android.support.constraint:constraint-layout:+'
     implementation 'com.airbnb.android:lottie:2.5.4'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }
