@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/color1"
     tools:context="com.myfirstapp.logintest2.TodoDetailActivity">
 
 
@@ -12,7 +13,8 @@
         android:id="@+id/todo_detail_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title="Detail" />
+        android:textAlignment="center"
+        app:title="Details" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,6 +23,7 @@
         app:layout_constraintTop_toBottomOf="@id/todo_detail_toolbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        android:textAlignment="center"
         android:orientation="vertical">
 
         <TextView
@@ -31,8 +34,9 @@
             android:layout_marginStart="8dp"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:textColor="#000000"
-            android:text="할일 제목"/>
+            android:textColor="@color/darkblue"
+            android:textAlignment="center"
+            android:text="Title"/>
 
         <TextView
             android:id="@+id/todo_detail_content"
@@ -40,8 +44,9 @@
             android:layout_height="wrap_content"
             android:padding="16dp"
             android:textSize="18sp"
-            android:textColor="#222222"
-            android:text="할일 내용"/>
+            android:textColor="@color/darkblue"
+            android:textAlignment="center"
+            android:text="Contents"/>
 
         <TextView
             android:id="@+id/todo_detail_endtime"
@@ -49,8 +54,9 @@
             android:layout_height="wrap_content"
             android:padding="16dp"
             android:textSize="18sp"
-            android:textColor="#222222"
-            android:text="언제까지"/>
+            android:textColor="@color/darkblue"
+            android:textAlignment="center"
+            android:text="From To"/>
 
         <TextView
             android:id="@+id/todo_detail_requiredtime"
@@ -58,8 +64,9 @@
             android:layout_height="wrap_content"
             android:padding="16dp"
             android:textSize="18sp"
-            android:textColor="#222222"
-            android:text="소요시간"/>
+            android:textColor="@color/darkblue"
+            android:textAlignment="center"
+            android:text="Expected Time"/>
 
     </LinearLayout>
 

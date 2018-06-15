@@ -16,6 +16,6 @@
     <string name="open">Open</string>
     <string name="close">Close</string>
 
-    <string name = "name_sample">Charlie Puth</string>
+    <string name="name_sample">Charlie Puth</string>
 
 </resources>

@@ -21,7 +21,7 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <android.support.design.widget.NavigationView
+    <!--android.support.design.widget.NavigationView
         android:id="@+id/navi"
         android:layout_width = "wrap_content"
         android:layout_height = "match_parent"
@@ -31,7 +31,7 @@
         app:menu="@menu/menu_drawer"
         app:headerLayout="@layout/navi_header"
         android:layout_gravity="start"
-        />
+        /> -->
 
     <ImageButton
         android:id="@+id/buttonimage_calendar"
@@ -68,7 +68,7 @@
         android:textColor="@color/color2"
         android:textAlignment="center"
         android:gravity="center"
-        android:textSize="35sp"
+        android:textSize="40sp"
         app:layout_constraintTop_toBottomOf="@+id/buttonimage_calendar"/>
 
     <TextView
@@ -98,7 +98,7 @@
         android:textColor="@color/color2"
         android:textAlignment="center"
         android:gravity="center"
-        android:textSize="35sp"
+        android:textSize="40sp"
         app:layout_constraintTop_toBottomOf="@+id/text_dailyTask"/>
 
     <android.support.v7.widget.RecyclerView

@@ -441,7 +441,7 @@ public class MainActivity extends AppCompatActivity {
     private void closeSubMenusFab(){
         layoutFabMission.setVisibility(View.INVISIBLE);
         layoutFabReminders.setVisibility(View.INVISIBLE);
-        fabSettings.setImageResource(R.drawable.ic_settings_black_24dp);
+        fabSettings.setImageResource(R.drawable.icon_add);
         fabExpanded = false;
     }
 
@@ -450,7 +450,7 @@ public class MainActivity extends AppCompatActivity {
         layoutFabMission.setVisibility(View.VISIBLE);
         layoutFabReminders.setVisibility(View.VISIBLE);
         //Change settings icon to 'X' icon
-        fabSettings.setImageResource(R.drawable.ic_close_black_24dp);
+        fabSettings.setImageResource(R.drawable.icon_close);
         fabExpanded = true;
     }
 
