@@ -12,6 +12,10 @@
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
+    <uses-permission android:name="android.permission.SET_ALARM" />
+    <!-- Permission to start Alarm on device reboot -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+
     <!--
     image memory problem
     hardwareAccelerated="false"
@@ -49,7 +53,13 @@
         <activity android:name=".TodoDetailActivity" />
         <activity android:name=".LoginActivity_Deprecated" />
         <activity android:name=".GroupActivity_Deprecated" />
-        <activity android:name=".GroupMatching"></activity>
+
+        <receiver android:name=".AlarmReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>
