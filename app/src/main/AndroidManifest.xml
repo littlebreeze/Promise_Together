@@ -45,14 +45,12 @@
         <activity android:name=".LoginActivity" />
         <activity android:name=".GroupRequestActivity" />
         <activity android:name=".AcceptRequestJoinActivity" />
-        <activity android:name=".Tutorial1" />
-        <activity android:name=".Tutorial2" />
-        <activity android:name=".Tutorial3" />
         <activity android:name=".Missions" />
         <activity android:name=".CalendarActivity" />
         <activity android:name=".TodoDetailActivity" />
         <activity android:name=".LoginActivity_Deprecated" />
         <activity android:name=".GroupActivity_Deprecated" />
+        <activity android:name=".TutorialActivity"/>
 
         <receiver android:name=".AlarmReceiver">
             <intent-filter>
