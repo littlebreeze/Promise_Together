@@ -7,6 +7,7 @@ import android.app.Dialog;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -35,6 +36,13 @@ import android.widget.PopupMenu;
 import android.view.View.OnClickListener;
 import android.support.design.widget.FloatingActionButton;
 
+// 음성인식
+import android.speech.RecognitionListener;
+import android.speech.RecognizerIntent;
+import android.speech.SpeechRecognizer;
+import android.util.Log;
+
+
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -48,12 +56,22 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import java.util.Calendar;
 
+
+// 음성인식
+
+
+
+
+
 //daily task, missions 보여주기
 public class MainActivity extends AppCompatActivity {
+
+
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
@@ -79,12 +97,15 @@ public class MainActivity extends AppCompatActivity {
     TextView Myname;
     Dialog thisDialog;
 
+    //private EditText write;
+
     private PendingIntent pendingIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //write = (EditText)findViewById(R.id.write);
 
         //이전 액티비티(LoginActivity.class)에서 넘겨준 사용자의 UID 값을 받아온다
         Intent intent = getIntent();
@@ -215,6 +236,39 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        /*
+        public void onButtonClick(View v){
+            if (v.getId() == R.id.button_VR_remind){
+                promptSpeechInput();
+            }
+        }
+
+        public void promptSpeechInput(){
+            Intent i = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+            i.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+            i.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+            i.putExtra(RecognizerIntent.EXTRA_PROMPT, "Say Something!");
+
+            try {
+                startActivityForResult(i, 100);
+            } catch (ActivityNotFoundException a){
+                Toast.makeText(MainActivity.this, "Sorry! device doesn't support speech language", Toast.LENGTH_LONG).show();
+            }
+        }
+
+        public void onActivityResult(int request_code, int result_code, Intent i){
+            super.onActivityResult(request_code, result_code, i);
+
+            switch (request_code){
+                case 100:
+                    if (result_code == RESULT_OK && i != null){
+                        ArrayList<String> result = intent.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                        write.setText(result.get(0));
+                    }
+                    break;
+            }
+        }
+    */
         AlertDialog.Builder builder = new AlertDialog.Builder(this);     // 여기서 this는 Activity의 this
 
         /*// 여기서 부터는 알림창의 속성 설정
