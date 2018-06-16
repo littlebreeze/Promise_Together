@@ -17,7 +17,6 @@
     <drawable name="bg_screen1">#B33395ff</drawable>
 
     <color name="fui_transparent">#c0c0c0</color>
-    <color name="yellowGreen">#9ACD32</color>
 
 
 </resources>
