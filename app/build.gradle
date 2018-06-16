@@ -73,6 +73,7 @@ android {
 
         implementation 'com.github.clans:fab:1.6.4'
 
+
     }
     apply plugin: 'com.google.gms.google-services'
 
@@ -81,5 +82,7 @@ android {
 dependencies {
     implementation 'com.android.support.constraint:constraint-layout:+'
     implementation 'com.airbnb.android:lottie:2.5.4'
+
+    implementation  'com.chauthai.swipereveallayout:swipe-reveal-layout:1.4.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }

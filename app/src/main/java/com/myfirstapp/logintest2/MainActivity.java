@@ -12,15 +12,16 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
@@ -45,12 +46,13 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-
-import java.util.Calendar;
+import android.support.v7.widget.Toolbar;
 
 //daily task, missions 보여주기
 public class MainActivity extends AppCompatActivity {
@@ -81,6 +83,13 @@ public class MainActivity extends AppCompatActivity {
 
     private PendingIntent pendingIntent;
 
+    private RecyclerView recyclerView;
+    private Adapter_Our_Missions adapter;
+
+
+   Button delete;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,6 +114,8 @@ public class MainActivity extends AppCompatActivity {
         Save = (Button)this.findViewById( R.id.SaveNow );
         SaveNow = (Button)this.findViewById( R.id.SaveNow );
 
+        delete = (Button)findViewById( R.id.delete );
+
         //폰트 설정
         initTypefaces();
 
@@ -121,16 +132,16 @@ public class MainActivity extends AppCompatActivity {
 
         //TodoList(Our Missions)를 다운로드 받고, 성공하면 mTodoList에 텍스트를 지정함
         final RecyclerView mTodoList = (RecyclerView) findViewById(R.id.main_todo_recyclerview);
+
         downloadTodoList(groupID, new TodoCallback() {
             @Override
             public void onSuccess(ArrayList<TODO> todos) {
                 Adapter_Todo adapterTodo = new Adapter_Todo(getApplicationContext(), todos);
                 mTodoList.setAdapter(adapterTodo);
+
             }
+
         });
-
-
-
 
         //profile picture's menu
         mProfileButton = (ImageButton) findViewById(R.id.main_profile);
@@ -335,7 +346,10 @@ public class MainActivity extends AppCompatActivity {
         //Only main FAB is visible in the beginning
         closeSubMenusFab();
 
+
     }
+
+
 
     private interface NoticeCallback {
         void onSuccess(String data);
@@ -455,6 +469,8 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
+
+
     public void calendar(View view) {
 
     }
@@ -533,8 +549,8 @@ public class MainActivity extends AppCompatActivity {
         Calendar calendar = Calendar.getInstance();
 
         calendar.set( Calendar.HOUR_OF_DAY, 17 );
-        calendar.set( Calendar.MINUTE, 07 );
-        calendar.set( Calendar.SECOND, 20 );
+        calendar.set( Calendar.MINUTE,  18);
+        calendar.set( Calendar.SECOND, 00 );
 
         Intent intent = new Intent( getApplicationContext(), MainActivity.class );
         PendingIntent pendingIntent = PendingIntent.getBroadcast( getApplicationContext(), 100, intent, PendingIntent.FLAG_UPDATE_CURRENT );
@@ -543,7 +559,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-
 
 
 
