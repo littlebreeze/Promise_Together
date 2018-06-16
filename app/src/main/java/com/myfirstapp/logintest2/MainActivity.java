@@ -12,16 +12,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
@@ -49,10 +46,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import android.support.v7.widget.Toolbar;
 
 //daily task, missions 보여주기
 public class MainActivity extends AppCompatActivity {
@@ -89,6 +85,8 @@ public class MainActivity extends AppCompatActivity {
 
    Button delete;
 
+   int groupID = 1; //todo sample group id
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,8 +118,6 @@ public class MainActivity extends AppCompatActivity {
         initTypefaces();
 
         //여기서부터 이제 DB에서 정보 받아와서 지정하는 과정
-        int groupID = 1; //todo sample group id
-
         //Notice(Daily Reminders)를 다운로드 받고, 성공하면 mNoticeContent에 텍스트를 지정함
         downloadNoticeContent(groupID, new NoticeCallback() {
             @Override
@@ -133,12 +129,11 @@ public class MainActivity extends AppCompatActivity {
         //TodoList(Our Missions)를 다운로드 받고, 성공하면 mTodoList에 텍스트를 지정함
         final RecyclerView mTodoList = (RecyclerView) findViewById(R.id.main_todo_recyclerview);
 
-        downloadTodoList(groupID, new TodoCallback() {
+        downloadTodoList(groupID, new DownloadTodoCallback() {
             @Override
             public void onSuccess(ArrayList<TODO> todos) {
                 Adapter_Todo adapterTodo = new Adapter_Todo(getApplicationContext(), todos);
                 mTodoList.setAdapter(adapterTodo);
-
             }
 
         });
@@ -308,18 +303,20 @@ public class MainActivity extends AppCompatActivity {
                 thisDialog = new Dialog(MainActivity.this);
                 thisDialog.setTitle("Promise");
                 thisDialog.setContentView(R.layout.mission_dialog);
-                final EditText Write = (EditText) thisDialog.findViewById(R.id.titleM);
+                final EditText Title = (EditText) thisDialog.findViewById(R.id.titleM);
+                final EditText Minutes = (EditText) thisDialog.findViewById(R.id.minutes);
+                final EditText Write = (EditText) thisDialog.findViewById(R.id.write);
                 Button SaveMyName = (Button) thisDialog.findViewById(R.id.SaveNow);
-                Write.setEnabled(true);
+                Title.setEnabled(true);
                 SaveMyName.setEnabled(true);
 
                 SaveMyName.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        SharedPrefesSAVE(Write.getText().toString());
+                        SharedPrefesSAVE(Title.getText().toString());
                         thisDialog.cancel();
                         String subject = "Mission Edited!!!";
-                        String body = Write.getText().toString().trim();
+                        String body = Title.getText().toString().trim();
 
                         NotificationManager notif = (NotificationManager) getSystemService( Context.NOTIFICATION_SERVICE );
                         Notification notify = new Notification.Builder
@@ -332,7 +329,28 @@ public class MainActivity extends AppCompatActivity {
                         notif.notify( 0, notify );
 
 
+                        TODO todo = new TODO();
+                        todo.setTitle(Title.getText().toString());
+                        todo.setContent(Write.getText().toString());
 
+                        String minute = Minutes.getText().toString();
+                        todo.setRequiredTime(Integer.parseInt(minute)); //여기에 숫자 안넣으면 다터짐
+                        todo.setEndTime(new Date(System.currentTimeMillis() + 864000000L));
+                        todo.setChecked(false);
+
+                        uploadTodo(todo, new UploadTodoCallback() {
+                            @Override
+                            public void onSuccess() {
+                                downloadTodoList(groupID, new DownloadTodoCallback() {
+                                    @Override
+                                    public void onSuccess(ArrayList<TODO> todos) {
+                                        Adapter_Todo adapterTodo = new Adapter_Todo(getApplicationContext(), todos);
+                                        mTodoList.setAdapter(adapterTodo);
+                                    }
+
+                                });
+                            }
+                        });
                     }
                 });
 
@@ -355,8 +373,12 @@ public class MainActivity extends AppCompatActivity {
         void onSuccess(String data);
     }
 
-    private interface TodoCallback {
+    private interface DownloadTodoCallback {
         void onSuccess(ArrayList<TODO> todos);
+    }
+
+    private interface UploadTodoCallback {
+        void onSuccess();
     }
 
     private void initDB() {
@@ -390,7 +412,7 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
-    private void downloadTodoList(int id, final TodoCallback callback) {
+    private void downloadTodoList(int id, final DownloadTodoCallback callback) {
         if (db == null) {
             initDB();
         }
@@ -435,6 +457,51 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
     }
+
+    public static void uploadTodoDelete(String documentId) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("promiseOnce").document(documentId)
+                .delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "DocumentSnapshot successfully deleted!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error deleting document", e);
+                    }
+                });
+    }
+
+    private void uploadTodo(TODO todo, final UploadTodoCallback callback) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("checked", false);
+        data.put("content", todo.getContent());
+        data.put("endTime", todo.getEndTime());
+        data.put("groupId", 1); //todo groupId
+        data.put("requiredTime", todo.getRequiredTime());
+        data.put("title", todo.getTitle());
+
+        db.collection("promiseOnce")
+                .add(data)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
+                        callback.onSuccess();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error adding document", e);
+                    }
+                });
+    }
+
 
     private void initTypefaces() {
         Typeface HoonTopBI = Typeface.createFromAsset(getAssets(), "fonts/HoonTop Bold italic.ttf");

@@ -31,14 +31,12 @@ public class Adapter_Todo extends RecyclerView.Adapter<Adapter_Todo.ViewHolder> 
         CheckBox checkBox;
         Button deleteButton;
 
-
         public ViewHolder(Context context, ViewGroup parent) {
             super(LayoutInflater.from(context).inflate(R.layout.custom_listview_our_missions, parent, false));
 
             frameLayout = (FrameLayout) itemView.findViewById(R.id.custom_listview_todo_framelayout);
             checkBox = (CheckBox) itemView.findViewById(R.id.custom_listview_todo_checkbox);
             deleteButton = (Button) itemView.findViewById(R.id.delete);
-
         }
 
         @Override
@@ -123,6 +121,9 @@ public class Adapter_Todo extends RecyclerView.Adapter<Adapter_Todo.ViewHolder> 
 
                 // Show the removed item label
                 Toast.makeText(context,"Mission Removed " ,Toast.LENGTH_SHORT).show();
+
+                //Delete on firestore DB
+                MainActivity.uploadTodoDelete(todo.getDocumentId());
             }
         });
 
