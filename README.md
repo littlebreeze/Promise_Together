@@ -5,16 +5,16 @@
 
 ## We did...
 - [X] UI Design
-- [ ] Fix general design (remove png design)
+- [X] Fix general design (remove png design)
 ---
 - [X] Start Page
-- [ ] Tutorial Page (fill)
+- [X] Tutorial Page (fill)
 - [X] Main Page Layout
 ---
 - [X] Login/Register
 - [X] Sign Out
 - [X] Make Member Database
-- [ ] Make Group Database
+- [X] Make Group Database
 - [X] Make 'Daily Reminders' and 'Our Missions' Database 
 - [ ] Make individual operation possible (Promises) - edit, rename
 ---
@@ -23,13 +23,13 @@
 - [X] Show Reminders and Missions List
 - [X] Add Calendar
 - [ ] Voice Recognition (by shaking)
-- [ ] Reading Function
+- [X] Reading Function
 ---
 - [ ] Add Navigation Drawer function
-- [ ] Make profile picture function
-- [ ] Insert calendar function
-- [ ] Insert sign-out function
-- [ ] Make group connection function
+- [X] Make profile picture function
+- [X] Insert calendar function
+- [X] Insert sign-out function
+- [X] Make group connection function
 
 ## member
 Syahirah(@syahirah29) <br>
