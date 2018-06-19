@@ -104,6 +104,7 @@ public class TutorialActivity extends AppCompatActivity {
             if(i == 0){
                 mNextBtn.setEnabled(true);
                 mBackBtn.setEnabled(false);
+                mNextBtn.setVisibility(View.VISIBLE);
                 mBackBtn.setVisibility(View.INVISIBLE);
                 mFinishBtn.setVisibility(View.INVISIBLE);
 
@@ -117,6 +118,7 @@ public class TutorialActivity extends AppCompatActivity {
             } else {
                 mNextBtn.setEnabled(true);
                 mBackBtn.setEnabled(true);
+                mNextBtn.setVisibility(View.VISIBLE);
                 mBackBtn.setVisibility(View.VISIBLE);
                 mFinishBtn.setVisibility(View.INVISIBLE);
             }

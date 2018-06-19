@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/holo_blue_dark"
+    android:background="#f0ede5"
     tools:context=".TutorialActivity">
 
     <android.support.v4.view.ViewPager
@@ -35,7 +35,7 @@
         android:layout_alignParentStart="true"
         android:background="@android:color/transparent"
         android:text="back"
-        android:textColor="@color/white"
+        android:textColor="@color/color5"
         android:visibility="invisible" />
 
     <Button
@@ -47,7 +47,7 @@
         android:layout_alignParentRight="true"
         android:background="@android:color/transparent"
         android:text="next"
-        android:textColor="@color/white" />
+        android:textColor="@color/color5" />
 
     <Button
         android:id="@+id/finishBtn"
@@ -57,8 +57,8 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:background="@android:color/transparent"
-        android:text="finish"
-        android:textColor="@color/white"
+        android:text="Start !"
+        android:textColor="@color/color5"
         android:visibility="invisible" />
 
 </RelativeLayout>

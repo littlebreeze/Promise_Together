@@ -7,7 +7,6 @@ import android.app.Dialog;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,8 +16,6 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -36,13 +33,6 @@ import android.widget.PopupMenu;
 import android.view.View.OnClickListener;
 import android.support.design.widget.FloatingActionButton;
 
-// 음성인식
-import android.speech.RecognitionListener;
-import android.speech.RecognizerIntent;
-import android.speech.SpeechRecognizer;
-import android.util.Log;
-
-
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -53,25 +43,15 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
-
-import java.util.Calendar;
-
-
-// 음성인식
-
-
-
-
 
 //daily task, missions 보여주기
 public class MainActivity extends AppCompatActivity {
-
-
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
@@ -97,15 +77,21 @@ public class MainActivity extends AppCompatActivity {
     TextView Myname;
     Dialog thisDialog;
 
-    //private EditText write;
-
     private PendingIntent pendingIntent;
+
+    private RecyclerView recyclerView;
+    private Adapter_Our_Missions adapter;
+
+
+   Button delete;
+
+   int groupID = 1; //todo sample group id
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //write = (EditText)findViewById(R.id.write);
 
         //이전 액티비티(LoginActivity.class)에서 넘겨준 사용자의 UID 값을 받아온다
         Intent intent = getIntent();
@@ -126,12 +112,12 @@ public class MainActivity extends AppCompatActivity {
         Save = (Button)this.findViewById( R.id.SaveNow );
         SaveNow = (Button)this.findViewById( R.id.SaveNow );
 
+        delete = (Button)findViewById( R.id.delete );
+
         //폰트 설정
         initTypefaces();
 
         //여기서부터 이제 DB에서 정보 받아와서 지정하는 과정
-        int groupID = 1; //todo sample group id
-
         //Notice(Daily Reminders)를 다운로드 받고, 성공하면 mNoticeContent에 텍스트를 지정함
         downloadNoticeContent(groupID, new NoticeCallback() {
             @Override
@@ -142,16 +128,15 @@ public class MainActivity extends AppCompatActivity {
 
         //TodoList(Our Missions)를 다운로드 받고, 성공하면 mTodoList에 텍스트를 지정함
         final RecyclerView mTodoList = (RecyclerView) findViewById(R.id.main_todo_recyclerview);
-        downloadTodoList(groupID, new TodoCallback() {
+
+        downloadTodoList(groupID, new DownloadTodoCallback() {
             @Override
             public void onSuccess(ArrayList<TODO> todos) {
                 Adapter_Todo adapterTodo = new Adapter_Todo(getApplicationContext(), todos);
                 mTodoList.setAdapter(adapterTodo);
             }
+
         });
-
-
-
 
         //profile picture's menu
         mProfileButton = (ImageButton) findViewById(R.id.main_profile);
@@ -236,39 +221,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        /*
-        public void onButtonClick(View v){
-            if (v.getId() == R.id.button_VR_remind){
-                promptSpeechInput();
-            }
-        }
-
-        public void promptSpeechInput(){
-            Intent i = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-            i.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-            i.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
-            i.putExtra(RecognizerIntent.EXTRA_PROMPT, "Say Something!");
-
-            try {
-                startActivityForResult(i, 100);
-            } catch (ActivityNotFoundException a){
-                Toast.makeText(MainActivity.this, "Sorry! device doesn't support speech language", Toast.LENGTH_LONG).show();
-            }
-        }
-
-        public void onActivityResult(int request_code, int result_code, Intent i){
-            super.onActivityResult(request_code, result_code, i);
-
-            switch (request_code){
-                case 100:
-                    if (result_code == RESULT_OK && i != null){
-                        ArrayList<String> result = intent.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                        write.setText(result.get(0));
-                    }
-                    break;
-            }
-        }
-    */
         AlertDialog.Builder builder = new AlertDialog.Builder(this);     // 여기서 this는 Activity의 this
 
         /*// 여기서 부터는 알림창의 속성 설정
@@ -351,18 +303,20 @@ public class MainActivity extends AppCompatActivity {
                 thisDialog = new Dialog(MainActivity.this);
                 thisDialog.setTitle("Promise");
                 thisDialog.setContentView(R.layout.mission_dialog);
-                final EditText Write = (EditText) thisDialog.findViewById(R.id.titleM);
+                final EditText Title = (EditText) thisDialog.findViewById(R.id.titleM);
+                final EditText Minutes = (EditText) thisDialog.findViewById(R.id.minutes);
+                final EditText Write = (EditText) thisDialog.findViewById(R.id.write);
                 Button SaveMyName = (Button) thisDialog.findViewById(R.id.SaveNow);
-                Write.setEnabled(true);
+                Title.setEnabled(true);
                 SaveMyName.setEnabled(true);
 
                 SaveMyName.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        SharedPrefesSAVE(Write.getText().toString());
+                        SharedPrefesSAVE(Title.getText().toString());
                         thisDialog.cancel();
                         String subject = "Mission Edited!!!";
-                        String body = Write.getText().toString().trim();
+                        String body = Title.getText().toString().trim();
 
                         NotificationManager notif = (NotificationManager) getSystemService( Context.NOTIFICATION_SERVICE );
                         Notification notify = new Notification.Builder
@@ -375,7 +329,28 @@ public class MainActivity extends AppCompatActivity {
                         notif.notify( 0, notify );
 
 
+                        TODO todo = new TODO();
+                        todo.setTitle(Title.getText().toString());
+                        todo.setContent(Write.getText().toString());
 
+                        String minute = Minutes.getText().toString();
+                        todo.setRequiredTime(Integer.parseInt(minute)); //여기에 숫자 안넣으면 다터짐
+                        todo.setEndTime(new Date(System.currentTimeMillis() + 864000000L));
+                        todo.setChecked(false);
+
+                        uploadTodo(todo, new UploadTodoCallback() {
+                            @Override
+                            public void onSuccess() {
+                                downloadTodoList(groupID, new DownloadTodoCallback() {
+                                    @Override
+                                    public void onSuccess(ArrayList<TODO> todos) {
+                                        Adapter_Todo adapterTodo = new Adapter_Todo(getApplicationContext(), todos);
+                                        mTodoList.setAdapter(adapterTodo);
+                                    }
+
+                                });
+                            }
+                        });
                     }
                 });
 
@@ -389,14 +364,21 @@ public class MainActivity extends AppCompatActivity {
         //Only main FAB is visible in the beginning
         closeSubMenusFab();
 
+
     }
+
+
 
     private interface NoticeCallback {
         void onSuccess(String data);
     }
 
-    private interface TodoCallback {
+    private interface DownloadTodoCallback {
         void onSuccess(ArrayList<TODO> todos);
+    }
+
+    private interface UploadTodoCallback {
+        void onSuccess();
     }
 
     private void initDB() {
@@ -430,7 +412,7 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
-    private void downloadTodoList(int id, final TodoCallback callback) {
+    private void downloadTodoList(int id, final DownloadTodoCallback callback) {
         if (db == null) {
             initDB();
         }
@@ -476,6 +458,51 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
+    public static void uploadTodoDelete(String documentId) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("promiseOnce").document(documentId)
+                .delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "DocumentSnapshot successfully deleted!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error deleting document", e);
+                    }
+                });
+    }
+
+    private void uploadTodo(TODO todo, final UploadTodoCallback callback) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("checked", false);
+        data.put("content", todo.getContent());
+        data.put("endTime", todo.getEndTime());
+        data.put("groupId", 1); //todo groupId
+        data.put("requiredTime", todo.getRequiredTime());
+        data.put("title", todo.getTitle());
+
+        db.collection("promiseOnce")
+                .add(data)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.d(TAG, "DocumentSnapshot written with ID: " + documentReference.getId());
+                        callback.onSuccess();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error adding document", e);
+                    }
+                });
+    }
+
+
     private void initTypefaces() {
         Typeface HoonTopBI = Typeface.createFromAsset(getAssets(), "fonts/HoonTop Bold italic.ttf");
         Typeface Binggrae = Typeface.createFromAsset(getAssets(), "fonts/Binggrae.ttf");
@@ -509,6 +536,8 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
+
+
     public void calendar(View view) {
 
     }
@@ -540,7 +569,7 @@ public class MainActivity extends AppCompatActivity {
     private void closeSubMenusFab(){
         layoutFabMission.setVisibility(View.INVISIBLE);
         layoutFabReminders.setVisibility(View.INVISIBLE);
-        fabSettings.setImageResource(R.drawable.icon_add);
+        fabSettings.setImageResource(R.drawable.ic_settings_black_24dp);
         fabExpanded = false;
     }
 
@@ -549,7 +578,7 @@ public class MainActivity extends AppCompatActivity {
         layoutFabMission.setVisibility(View.VISIBLE);
         layoutFabReminders.setVisibility(View.VISIBLE);
         //Change settings icon to 'X' icon
-        fabSettings.setImageResource(R.drawable.icon_close);
+        fabSettings.setImageResource(R.drawable.ic_close_black_24dp);
         fabExpanded = true;
     }
 
@@ -587,8 +616,8 @@ public class MainActivity extends AppCompatActivity {
         Calendar calendar = Calendar.getInstance();
 
         calendar.set( Calendar.HOUR_OF_DAY, 17 );
-        calendar.set( Calendar.MINUTE, 07 );
-        calendar.set( Calendar.SECOND, 20 );
+        calendar.set( Calendar.MINUTE,  18);
+        calendar.set( Calendar.SECOND, 00 );
 
         Intent intent = new Intent( getApplicationContext(), MainActivity.class );
         PendingIntent pendingIntent = PendingIntent.getBroadcast( getApplicationContext(), 100, intent, PendingIntent.FLAG_UPDATE_CURRENT );
@@ -597,7 +626,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-
 
 
 

@@ -21,21 +21,24 @@ public class SliderAdapter extends PagerAdapter {
 
     //Arrays
     public int[] slide_images = {
-            R.drawable.peach_icon,
-            R.drawable.book_icon,
-            R.drawable.piano_icon
+            R.drawable.icon_slider1,
+            R.drawable.icon_slider2,
+            R.drawable.icon_slider3
     };
 
     public String[] slide_headings = {
-            "PEACH",
-            "BOOK",
-            "PIANO"
+            "GROUP",
+            "REMINDER",
+            "MISSIONS"
     };
 
     public String[] slide_descs = {
-            "peach",
-            "book",
-            "piano"
+            "connect with each other.\n" +
+                    "share reminders and missions to keep and achieve goal together",
+            "Write anything to motivate and encourage eachother.\n" +
+                    "This will also help to keep healthy relationship",
+            "Write anything such as households\n" +
+                    "Keep this like a mission!"
     };
 
     @Override

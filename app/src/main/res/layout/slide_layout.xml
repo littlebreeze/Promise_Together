@@ -5,12 +5,12 @@
 
     <ImageView
         android:id="@+id/slide_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="102dp"
+        android:layout_height="107dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="80dp"
-        app:srcCompat="@drawable/peach_icon" />
+        android:layout_marginTop="110dp"
+        app:srcCompat="@drawable/icon_slider1" />
 
     <TextView
         android:id="@+id/slide_heading"
@@ -19,9 +19,9 @@
         android:layout_below="@+id/slide_image"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="60dp"
-        android:text="PEACH"
-        android:textColor="#FFFFFF"
-        android:textSize="20sp"
+        android:text="GROUP"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="25sp"
         android:textStyle="bold" />
 
     <TextView
@@ -32,9 +32,9 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="60dp"
         android:padding="10dp"
-        android:text="peach"
+        android:text="GROUP"
         android:textAlignment="center"
-        android:textColor="@android:color/holo_orange_light"
-        android:textSize="16sp" />
+        android:textColor="@color/darkblue"
+        android:textSize="18sp" />
 
 </RelativeLayout>
